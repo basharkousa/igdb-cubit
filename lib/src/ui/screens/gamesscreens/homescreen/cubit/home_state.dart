@@ -20,3 +20,11 @@ class HomeError extends HomeState {
 
   HomeError(this.message,this.localGames);
 }
+
+class HomeLoadingMore extends HomeState {}
+
+class HomeLoadMoreError extends HomeState {
+  final String message;
+
+  HomeLoadMoreError(this.message);
+}

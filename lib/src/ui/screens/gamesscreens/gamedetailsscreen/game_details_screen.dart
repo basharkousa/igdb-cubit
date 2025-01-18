@@ -1,3 +1,4 @@
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +15,7 @@ import 'package:readmore/readmore.dart';
 class GameDetailsScreen extends StatelessWidget {
   static const String route = "/GameDetailsScreen";
 
-  final GameDetailsCubit homeCubit = Get.find();
+  final GameDetailsCubit detailsCubit = Get.find();
 
   GameDetailsScreen({super.key});
 
@@ -60,7 +61,7 @@ class GameDetailsScreen extends StatelessWidget {
               width: double.infinity,
               fit: BoxFit.cover,
               imUrl:
-                  "https://images.igdb.com/igdb/image/upload/t_cover_big/${(homeCubit.state as GameDetailsInitial).game.cover?.imageId}.jpg"),
+                  "https://images.igdb.com/igdb/image/upload/t_cover_big/${(detailsCubit.state as GameDetailsInitial).game.cover?.imageId}.jpg"),
           Container(
             color: Colors.black.withAlpha(150),
           ),
@@ -89,7 +90,7 @@ class GameDetailsScreen extends StatelessWidget {
                         width: 59.20.w,
                         height: 62.06.h,
                         imUrl:
-                            "https:${(homeCubit.state as GameDetailsInitial).game.cover?.url}",
+                            "https:${(detailsCubit.state as GameDetailsInitial).game.cover?.url}",
                       ),
                     ),
                   ),
@@ -100,7 +101,7 @@ class GameDetailsScreen extends StatelessWidget {
                     padding:
                         EdgeInsets.symmetric(horizontal: Dimens.mainMargin),
                     child: Text(
-                      (homeCubit.state as GameDetailsInitial).game.name ?? "",
+                      (detailsCubit.state as GameDetailsInitial).game.name ?? "",
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
@@ -132,6 +133,34 @@ class GameDetailsScreen extends StatelessWidget {
             height: 16.h,
           ),
           Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(children: [
+              RatingBar.builder(
+                itemSize: 18.0,
+                initialRating: (detailsCubit.state as GameDetailsInitial).game.rating??20 / 20,
+                minRating: 1,
+                ignoreGestures: true,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+                itemBuilder: (context, _) => Icon(
+                  Icons.star,
+                  color: Colors.yellow,
+                ),
+                onRatingUpdate: (rating) {
+                  print(rating);
+                },
+              ),
+              SizedBox(
+                width: 3.0,
+              ),
+            ],),
+          ),
+          SizedBox(
+            height: 16.h,
+          ),
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: Dimens.mainMargin),
             child: Text(
               LocaleKeys.summary.tr,
@@ -144,7 +173,7 @@ class GameDetailsScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: Dimens.mainMargin),
             child: ReadMoreText(
-                (homeCubit.state as GameDetailsInitial).game.summary ?? "",
+                (detailsCubit.state as GameDetailsInitial).game.summary ?? "",
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontSize: 14.sp,
@@ -189,7 +218,7 @@ class GameDetailsScreen extends StatelessWidget {
   }
 
   buildProductsWidget() {
-    return (homeCubit.state as GameDetailsInitial)
+    return (detailsCubit.state as GameDetailsInitial)
                 .game
                 .screenshots
                 ?.isNotEmpty ??
@@ -197,7 +226,7 @@ class GameDetailsScreen extends StatelessWidget {
         ? GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: (homeCubit.state as GameDetailsInitial)
+            itemCount: (detailsCubit.state as GameDetailsInitial)
                     .game
                     .screenshots
                     ?.length ??
@@ -212,7 +241,7 @@ class GameDetailsScreen extends StatelessWidget {
               return GestureDetector(
                 onTap: () {
                   showPhotoViewDialog(
-                      "https://images.igdb.com/igdb/image/upload/t_screenshot_big/${(homeCubit.state as GameDetailsInitial).game.screenshots?[index].imageId}.jpg");
+                      "https://images.igdb.com/igdb/image/upload/t_screenshot_big/${(detailsCubit.state as GameDetailsInitial).game.screenshots?[index].imageId}.jpg");
                 },
                 child: Container(
                   // width: 166.w,
@@ -229,7 +258,7 @@ class GameDetailsScreen extends StatelessWidget {
                       child: MyCachedNetworkImage(
                         // imUrl: controller.game.screenshots![index].url,
                         imUrl:
-                            "https://images.igdb.com/igdb/image/upload/t_screenshot_big/${(homeCubit.state as GameDetailsInitial).game.screenshots?[index].imageId}.jpg",
+                            "https://images.igdb.com/igdb/image/upload/t_screenshot_big/${(detailsCubit.state as GameDetailsInitial).game.screenshots?[index].imageId}.jpg",
                       )),
                 ),
               );

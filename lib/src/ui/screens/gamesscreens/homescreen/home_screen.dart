@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
             color: Get.theme.colorScheme.secondary,
             child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
-                // controller: homeCubit.scrollController,
+                controller: homeCubit.scrollController,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
@@ -44,26 +44,7 @@ class HomeScreen extends StatelessWidget {
                       height: 16.h,
                     ),
                     // Without Pagination
-                    BlocProvider(
-                      create: (context) => homeCubit,
-                      child: BlocBuilder<HomeCubit, HomeState>(
-                        builder: (context, state) {
-                          switch (state.runtimeType) {
-                            case HomeInitial:
-                              return buildLoadingGamesWidget();
-                            case HomeLoading:
-                              return buildLoadingGamesWidget();
-                            case HomeSuccess:
-                              return buildGamesWidget(
-                                  (state as HomeSuccess).response.list ?? []);
-                            case HomeError:
-                              return buildErrorConnectionWidget();
-                            default:
-                              return const Text('Unexpected state');
-                          }
-                        },
-                      ),
-                    ),
+                    buildGameListWidgetState(),
                     SizedBox(
                       height: 48.h,
                     ),
@@ -76,29 +57,39 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget buildGamesWidget(List<GameModel> list) {
-    return ListView.separated(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          return ItemGame(
-            game: list[index],
-            onClick: (game) {
-              goToGameDetailsScreen(game);
+  Widget buildGamesWidget(List<GameModel>? list) {
+    return Column(
+      children: [
+        ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return ItemGame(
+                game: list != null
+                    ? list[index]
+                    : homeCubit.gamesList.list?[index],
+                onClick: (game) {
+                  goToGameDetailsScreen(game);
+                },
+              );
             },
-          );
-        },
-        separatorBuilder: (context, index) {
-          return Container(
-            height: 10.h,
-          );
-        },
-        itemCount: list.length ?? 0);
+            separatorBuilder: (context, index) {
+              return Container(
+                height: 10.h,
+              );
+            },
+            itemCount: list != null
+                ? list.length
+                : homeCubit.gamesList.list?.length ?? 0),
+        buildLoadMoreState()
+      ],
+    );
   }
 
-  Widget buildErrorConnectionWidget() {
-    return (homeCubit.state as HomeError).localGames.length>0 // Check for local games state
-        ? buildGamesWidget((homeCubit.state as HomeError).localGames)
+  Widget buildErrorConnectionWidget(HomeState state) {
+    return (state as HomeError).localGames.length >
+            0 // Check for local games state
+        ? buildGamesWidget(state.localGames)
         : Center(
             child: Text("No Cashed Games"),
           );
@@ -125,6 +116,62 @@ class HomeScreen extends StatelessWidget {
   }
 
   void goToGameDetailsScreen(GameModel game) {
-     Get.toNamed(GameDetailsScreen.route,arguments: game);
+    Get.toNamed(GameDetailsScreen.route, arguments: game);
+  }
+
+  buildGameListWidgetState() {
+    return BlocProvider(
+      create: (context) => homeCubit,
+      child: BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          switch (state.runtimeType) {
+            case HomeInitial:
+              return buildLoadingGamesWidget();
+            case HomeLoading:
+              return buildLoadingGamesWidget();
+            case HomeSuccess || HomeLoadingMore || HomeLoadMoreError:
+              print("LostLensht ${homeCubit.gamesList.list?.length}");
+              return buildGamesWidget(homeCubit.gamesList.list ?? []);
+            case HomeError:
+              return buildErrorConnectionWidget(state);
+            default:
+              return const Text('Unexpected state');
+          }
+        },
+      ),
+    );
+  }
+
+  buildLoadMoreState() {
+    switch (homeCubit.state.runtimeType) {
+      case HomeLoadingMore:
+        return buildLoadMoreLoading();
+      case HomeLoadMoreError:
+        return Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: InkWell(
+            onTap: () {
+              homeCubit.loadMore();
+            },
+            child: const Icon(
+              Icons.refresh,
+              size: 30,
+            ),
+          ),
+        );
+      default:
+        return Container(
+          height: 0,
+        );
+    }
+  }
+
+  buildLoadMoreLoading() {
+    return Shimmer.fromColors(
+        baseColor: Get.isDarkMode ? Colors.white12 : Colors.grey[300]!,
+        highlightColor: Get.isDarkMode
+            ? Colors.white12.withOpacity(0.5)
+            : Colors.grey[100]!,
+        child: ItemGameShimmer());
   }
 }

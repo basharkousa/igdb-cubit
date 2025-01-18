@@ -60,31 +60,6 @@ class ItemGame extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10.h,),
-                Row(children: [
-                  IgnorePointer(
-                    ignoring: true,
-                    child: RatingBar.builder(
-                      itemSize: 8.0,
-                      initialRating: game?.rating??20 / 20,
-                      minRating: 1,
-                      direction: Axis.horizontal,
-                      allowHalfRating: true,
-                      itemCount: 5,
-                      itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-                      itemBuilder: (context, _) => Icon(
-                        Icons.star,
-                        color: Colors.yellow,
-                      ),
-                      onRatingUpdate: (rating) {
-                        print(rating);
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: 3.0,
-                  ),
-                ],)
-
               ],
             ),
           ),
