@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:igameapp/generated/locales.g.dart';
 import 'package:igameapp/src/configs/colors.dart';
 import 'package:igameapp/src/configs/dimens.dart';
+import 'package:igameapp/src/di/getit/injection.dart';
 import 'package:igameapp/src/ui/screens/gamesscreens/gamedetailsscreen/cubit/game_details_cubit.dart';
 import 'package:igameapp/src/ui/widgets/appbars/app_bar_details.dart';
 import 'package:igameapp/src/ui/widgets/buttons/button_rounded.dart';
@@ -15,7 +16,8 @@ import 'package:readmore/readmore.dart';
 class GameDetailsScreen extends StatelessWidget {
   static const String route = "/GameDetailsScreen";
 
-  final GameDetailsCubit detailsCubit = Get.find();
+  // final GameDetailsCubit detailsCubit = Get.find();
+  final GameDetailsCubit detailsCubit = getIt<GameDetailsCubit>();
 
   GameDetailsScreen({super.key});
 

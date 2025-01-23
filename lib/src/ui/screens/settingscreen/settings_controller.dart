@@ -6,9 +6,9 @@ import 'package:igameapp/src/data/repository.dart';
 // with SingleGetTickerProviderMixin
 class SettingsController extends GetxController{
 
-  final Repository repository = Get.find();
+  final Repository repository;
 
-  SettingsController();
+  SettingsController(this.repository);
 
   List<ThemeModel> themeModelList = ThemeModel.themesList;
 

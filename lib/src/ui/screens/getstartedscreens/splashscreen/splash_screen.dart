@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:igameapp/src/di/getit/injection.dart';
 import 'package:igameapp/src/ui/screens/gamesscreens/homescreen/cubit/home_cubit.dart';
 import 'package:igameapp/src/ui/screens/gamesscreens/homescreen/home_screen.dart';
 import 'package:igameapp/src/ui/screens/getstartedscreens/splashscreen/cubit/splash_cubit.dart';
@@ -15,7 +16,7 @@ import '../../../widgets/sections/background_theme_widget.dart';
 class SplashScreenPage extends StatelessWidget {
   static const String route = "/";
 
-  final SplashCubit splashCubit = Get.find();
+  final SplashCubit splashCubit = getIt<SplashCubit>();
 
   SplashScreenPage({super.key});
 

@@ -5,6 +5,7 @@ import 'package:igameapp/src/configs/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:igameapp/src/data/models/gamesmodels/game_model.dart';
+import 'package:igameapp/src/di/getit/injection.dart';
 import 'package:igameapp/src/ui/screens/gamesscreens/gamedetailsscreen/game_details_screen.dart';
 import 'package:igameapp/src/ui/screens/gamesscreens/homescreen/cubit/home_cubit.dart';
 import 'package:igameapp/src/ui/widgets/appbars/app_bar_home.dart';
@@ -16,7 +17,7 @@ class HomeScreen extends StatelessWidget {
 
   HomeScreen({super.key});
 
-  final HomeCubit homeCubit = Get.find();
+  final HomeCubit homeCubit = getIt<HomeCubit>();
 
   @override
   Widget build(BuildContext context) {

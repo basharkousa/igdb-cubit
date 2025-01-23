@@ -42,9 +42,9 @@ class AppBindings extends Bindings {
       return GameDetailsCubit(Get.find());
     });
 
-    Get.lazyPut<SettingsController>(() {
-      return SettingsController();
-    }, fenix: true);
+    // Get.lazyPut<SettingsController>(() {
+    //   return SettingsController();
+    // }, fenix: true);
 
   }
 }

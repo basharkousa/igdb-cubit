@@ -5,11 +5,14 @@ import 'package:igameapp/src/configs/colors.dart';
 import 'package:igameapp/src/configs/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:igameapp/src/di/getit/injection.dart';
 import 'package:igameapp/src/ui/screens/settingscreen/settings_controller.dart';
 import 'package:igameapp/src/ui/widgets/appbars/app_bar_default.dart';
 
-class SettingsScreen extends GetWidget<SettingsController> {
+class SettingsScreen extends StatelessWidget {
   static const String route = "/SettingsScreen";
+
+  final SettingsController controller = getIt<SettingsController>();
 
   SettingsScreen({super.key});
 

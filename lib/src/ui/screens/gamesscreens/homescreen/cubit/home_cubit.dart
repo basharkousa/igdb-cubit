@@ -34,57 +34,55 @@ class HomeCubit extends Cubit<HomeState> {
     gamesList = BaseResponse<GameModel>();
     offset = 0;
     try {
-      BaseResponse<GameModel> gamesListResponse = await repository.getGames(
-          {"limit": limit, "offset": offset});
+      BaseResponse<GameModel> gamesListResponse =
+          await repository.getGames({"limit": limit, "offset": offset});
       final currentState = state;
 
-        List<GameEntity> localGames = [];
-        for (var game in gamesListResponse.list ?? []) {
-          localGames.add(GameEntity.from(game));
-          await repository.addGames(localGames);
-        }
-        await repository.removeGames();
+      List<GameEntity> localGames = [];
+      for (var game in gamesListResponse.list ?? []) {
+        localGames.add(GameEntity.from(game));
         await repository.addGames(localGames);
-        gamesList = gamesListResponse;
-        emit(HomeSuccess(gamesList,
-            localGames.map((entity) => entity.toGameModel()).toList()));
-
+      }
+      await repository.removeGames();
+      await repository.addGames(localGames);
+      gamesList = gamesListResponse;
+      emit(HomeSuccess(gamesList,
+          localGames.map((entity) => entity.toGameModel()).toList()));
     } on DioException catch (error) {
-
       var list = await getLocalGamesList();
       emit(HomeError(DioErrorUtil.handleError(error) ?? "Error", list));
-
     } catch (error) {
-
       var list = await getLocalGamesList();
       emit(HomeError(error.toString(), list));
     }
   }
 
   Future<void> loadMore() async {
-    if(gamesList.list?.isNotEmpty??false)
-    if (!isLoading) {
-      emit(HomeLoadingMore());
-      offset += limit;
-      isLoading = true;
-      try {
-        BaseResponse<GameModel> gamesListResponse = await repository.getGames(
-            {"limit": limit, "offset": offset});
-        final currentState = state;
-        // if (currentState is HomeSuccess) {
+    if (gamesList.list?.isNotEmpty ?? false) {
+      if (!isLoading) {
+        emit(HomeLoadingMore());
+        offset += limit;
+        isLoading = true;
+        try {
+          BaseResponse<GameModel> gamesListResponse =
+              await repository.getGames({"limit": limit, "offset": offset});
+          final currentState = state;
+          // if (currentState is HomeSuccess) {
           gamesList.list!.addAll(gamesListResponse.list!);
-          emit(HomeSuccess(gamesList,[]));
-        // }
-      } on DioException catch (error) {
-        offset = offset - limit;
-        isLoading = false;
-        emit(HomeLoadMoreError(DioErrorUtil.handleError(error)??"LoadMoreError"));
-      } catch (error) {
-        offset = offset - limit;
-        isLoading = false;
-        emit(HomeLoadMoreError(error.toString()));
-      } finally {
-        isLoading = false;
+          emit(HomeSuccess(gamesList, []));
+          // }
+        } on DioException catch (error) {
+          offset = offset - limit;
+          isLoading = false;
+          emit(HomeLoadMoreError(
+              DioErrorUtil.handleError(error) ?? "LoadMoreError"));
+        } catch (error) {
+          offset = offset - limit;
+          isLoading = false;
+          emit(HomeLoadMoreError(error.toString()));
+        } finally {
+          isLoading = false;
+        }
       }
     }
   }
