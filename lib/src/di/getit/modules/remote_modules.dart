@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dio_http_formatter/dio_http_formatter.dart';
 import 'package:igameapp/src/data/remote/api/app_api.dart';
 import 'package:igameapp/src/data/remote/api/clients/dio_client.dart';
 import 'package:igameapp/src/data/remote/api/clients/rest_client.dart';
@@ -20,6 +21,17 @@ abstract class RemoteModule {
           const Duration(milliseconds: Endpoints.connectionTimeout)
       ..options.receiveTimeout =
           const Duration(milliseconds: Endpoints.receiveTimeout)
+      ..interceptors.add(HttpFormatter(
+        loggingFilter: (request, response, error) {
+          // We don't want to print the request/response when 201 is returned
+          // if (response?.statusCode == 201) {
+          //   return false;
+          // }
+          // Otherwise, the logs should print
+          return true;
+        },
+
+      ))
       ..interceptors.add(
         InterceptorsWrapper(
           onRequest: (RequestOptions options,
