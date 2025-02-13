@@ -16,10 +16,9 @@ import 'package:readmore/readmore.dart';
 class GameDetailsScreen extends StatelessWidget {
   static const String route = "/GameDetailsScreen";
 
-  // final GameDetailsCubit detailsCubit = Get.find();
-  final GameDetailsCubit detailsCubit = getIt<GameDetailsCubit>();
+  final GameDetailsCubit detailsCubit;
 
-  GameDetailsScreen({super.key});
+  GameDetailsScreen({super.key, required this.detailsCubit});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +62,7 @@ class GameDetailsScreen extends StatelessWidget {
               width: double.infinity,
               fit: BoxFit.cover,
               imUrl:
-                  "https://images.igdb.com/igdb/image/upload/t_cover_big/${(detailsCubit.state as GameDetailsInitial).game.cover?.imageId}.jpg"),
+                  "https://images.igdb.com/igdb/image/upload/t_cover_big/${(detailsCubit.state as GameDetailsInitial).game?.cover?.imageId}.jpg"),
           Container(
             color: Colors.black.withAlpha(150),
           ),
@@ -92,7 +91,7 @@ class GameDetailsScreen extends StatelessWidget {
                         width: 59.20.w,
                         height: 62.06.h,
                         imUrl:
-                            "https:${(detailsCubit.state as GameDetailsInitial).game.cover?.url}",
+                            "https:${(detailsCubit.state as GameDetailsInitial).game?.cover?.url}",
                       ),
                     ),
                   ),
@@ -103,7 +102,7 @@ class GameDetailsScreen extends StatelessWidget {
                     padding:
                         EdgeInsets.symmetric(horizontal: Dimens.mainMargin),
                     child: Text(
-                      (detailsCubit.state as GameDetailsInitial).game.name ?? "",
+                      (detailsCubit.state as GameDetailsInitial).game?.name ?? "",
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
@@ -139,7 +138,7 @@ class GameDetailsScreen extends StatelessWidget {
             child: Row(children: [
               RatingBar.builder(
                 itemSize: 18.0,
-                initialRating: (detailsCubit.state as GameDetailsInitial).game.rating??20 / 20,
+                initialRating: (detailsCubit.state as GameDetailsInitial).game?.rating??20 / 20,
                 minRating: 1,
                 ignoreGestures: true,
                 direction: Axis.horizontal,
@@ -175,7 +174,7 @@ class GameDetailsScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: Dimens.mainMargin),
             child: ReadMoreText(
-                (detailsCubit.state as GameDetailsInitial).game.summary ?? "",
+                (detailsCubit.state as GameDetailsInitial).game?.summary ?? "",
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontSize: 14.sp,
@@ -222,7 +221,7 @@ class GameDetailsScreen extends StatelessWidget {
   buildProductsWidget() {
     return (detailsCubit.state as GameDetailsInitial)
                 .game
-                .screenshots
+                ?.screenshots
                 ?.isNotEmpty ??
             false
         ? GridView.builder(
@@ -230,7 +229,7 @@ class GameDetailsScreen extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: (detailsCubit.state as GameDetailsInitial)
                     .game
-                    .screenshots
+                    ?.screenshots
                     ?.length ??
                 0,
             padding: EdgeInsetsDirectional.all(0),
@@ -243,7 +242,7 @@ class GameDetailsScreen extends StatelessWidget {
               return GestureDetector(
                 onTap: () {
                   showPhotoViewDialog(
-                      "https://images.igdb.com/igdb/image/upload/t_screenshot_big/${(detailsCubit.state as GameDetailsInitial).game.screenshots?[index].imageId}.jpg");
+                      "https://images.igdb.com/igdb/image/upload/t_screenshot_big/${(detailsCubit.state as GameDetailsInitial).game?.screenshots?[index].imageId}.jpg");
                 },
                 child: Container(
                   // width: 166.w,
@@ -258,9 +257,9 @@ class GameDetailsScreen extends StatelessWidget {
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(16.r),
                       child: MyCachedNetworkImage(
-                        // imUrl: controller.game.screenshots![index].url,
+                        // imUrl: controller.game?.screenshots![index].url,
                         imUrl:
-                            "https://images.igdb.com/igdb/image/upload/t_screenshot_big/${(detailsCubit.state as GameDetailsInitial).game.screenshots?[index].imageId}.jpg",
+                            "https://images.igdb.com/igdb/image/upload/t_screenshot_big/${(detailsCubit.state as GameDetailsInitial).game?.screenshots?[index].imageId}.jpg",
                       )),
                 ),
               );

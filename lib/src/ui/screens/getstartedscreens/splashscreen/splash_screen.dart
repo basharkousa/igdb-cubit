@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:igameapp/src/configs/navigation/extension.dart';
 import 'package:igameapp/src/di/getit/injection.dart';
 import 'package:igameapp/src/ui/screens/gamesscreens/homescreen/cubit/home_cubit.dart';
 import 'package:igameapp/src/ui/screens/gamesscreens/homescreen/home_screen.dart';
@@ -35,7 +36,7 @@ class SplashScreenPage extends StatelessWidget {
               const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                   AppLogoSection(),
+                  AppLogoSection(),
                 ],
               ),
               Align(
@@ -49,16 +50,19 @@ class SplashScreenPage extends StatelessWidget {
                         create: (context) => splashCubit,
                         child: BlocBuilder<SplashCubit, SplashState>(
                           builder: (context, state) {
-                            switch (state.runtimeType) {
-                              case SplashInitial:
+                            switch (state) {
+                              case SplashInitial():
                                 return buildLoadingGamesWidget();
-                              case SplashLoading:
+                              case SplashLoading():
                                 return buildLoadingGamesWidget();
-                              case SplashSuccess:
-                                return StatefulWrapper(onInit: (){
-
-                                }, child: Container(),);
-                              case SplashError:
+                              case SplashSuccess():
+                                return StatefulWrapper(
+                                  onInit: (){
+                                    goToHomeScreen(context);
+                                  },
+                                  child: Container(),
+                                );
+                              case SplashError():
                                 return Container();
                               default:
                                 return buildLoadingGamesWidget();
@@ -66,7 +70,7 @@ class SplashScreenPage extends StatelessWidget {
                           },
                         ),
                       ),
-                     /* GetXStateWidget(
+                      /* GetXStateWidget(
                         snapshotLiveData: controller.loginResponseLiveData,
                         loadingWidget: SpinKitCircle(
                           color: Get.isDarkMode ? Colors.white : Colors.black,
@@ -97,8 +101,14 @@ class SplashScreenPage extends StatelessWidget {
     );
   }
 
-  Future<void> goToHomeScreen() async {
-    Get.offNamed(HomeScreen.route);
+  Future<void> goToHomeScreen(BuildContext context) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.navigateAndRemoveUntil(HomeScreen.route,
+          predicate: (route) => false);
+    });
+
+    // context.goNamed(HomeScreen.route,);
+    // Get.offNamed(HomeScreen.route);
   }
 
   Widget buildLoadingGamesWidget() {

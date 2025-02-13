@@ -4,8 +4,10 @@ import 'package:igameapp/generated/locales.g.dart';
 import 'package:igameapp/src/configs/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:igameapp/src/configs/navigation/extension.dart';
 import 'package:igameapp/src/data/models/gamesmodels/game_model.dart';
 import 'package:igameapp/src/di/getit/injection.dart';
+import 'package:igameapp/src/ui/screens/gamesscreens/gamedetailsscreen/game_details_screen.dart';
 import 'package:igameapp/src/ui/screens/gamesscreens/homescreen/cubit/home_cubit.dart';
 import 'package:igameapp/src/ui/widgets/appbars/app_bar_default.dart';
 import 'package:igameapp/src/ui/widgets/buttons/button_default.dart';
@@ -16,10 +18,10 @@ import 'package:shimmer/shimmer.dart';
 class SavedGamesScreen extends StatelessWidget{
   static const String route = "/SavedGamesScreen";
 
-  final HomeCubit homeCubit = getIt<HomeCubit>();
+  final HomeCubit homeCubit;
 
 
-  SavedGamesScreen({super.key});
+  SavedGamesScreen({super.key,required this.homeCubit});
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +50,8 @@ class SavedGamesScreen extends StatelessWidget{
                         SizedBox(
                           height: 16.h,
                         ),
-                        BlocProvider(
-                          create: (context) => homeCubit,
+                        BlocProvider.value(
+                          value: homeCubit,
                           child: BlocBuilder<HomeCubit, HomeState>(
                             builder: (context, state) {
                               switch (state.runtimeType) {
@@ -59,7 +61,7 @@ class SavedGamesScreen extends StatelessWidget{
                                   return buildLoadingGamesWidget();
                                 case HomeSuccess:
                                   return buildGamesWidget(
-                                      (state as HomeSuccess).localGames ?? []);
+                                      (state as HomeSuccess).localGames);
                                 case HomeError:
                                   return buildErrorConnectionWidget();
                                 default:
@@ -99,7 +101,7 @@ class SavedGamesScreen extends StatelessWidget{
           return ItemGame(
             game: list[index],
             onClick: (game) {
-              // controller.goToGameDetailsScreen(game);
+              context.navigateTo(GameDetailsScreen.route,arguments: game);
             },
           );
         },

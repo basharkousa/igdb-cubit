@@ -4,10 +4,13 @@ import 'package:igameapp/generated/locales.g.dart';
 import 'package:igameapp/src/configs/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:igameapp/src/configs/navigation/extension.dart';
 import 'package:igameapp/src/data/models/gamesmodels/game_model.dart';
 import 'package:igameapp/src/di/getit/injection.dart';
 import 'package:igameapp/src/ui/screens/gamesscreens/gamedetailsscreen/game_details_screen.dart';
 import 'package:igameapp/src/ui/screens/gamesscreens/homescreen/cubit/home_cubit.dart';
+import 'package:igameapp/src/ui/screens/gamesscreens/savedgamesscreen/saved_games_screen.dart';
+import 'package:igameapp/src/ui/screens/settingscreen/settings_screen.dart';
 import 'package:igameapp/src/ui/widgets/appbars/app_bar_home.dart';
 import 'package:igameapp/src/ui/widgets/items/item_game.dart';
 import 'package:shimmer/shimmer.dart';
@@ -27,6 +30,13 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBarHome(
           title: LocaleKeys.popular_games_right_now.tr,
+          onSettingClick: (){
+            print("Bdadba");
+            context.navigateTo(SettingsScreen.route);
+          },
+          onHistoryClick: (){
+            context.navigateTo(SavedGamesScreen.route);
+          },
         ),
         body: Container(
           margin: EdgeInsetsDirectional.only(
@@ -70,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                     ? list[index]
                     : homeCubit.gamesList.list?[index],
                 onClick: (game) {
-                  goToGameDetailsScreen(game);
+                  goToGameDetailsScreen(game,context);
                 },
               );
             },
@@ -116,24 +126,25 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  void goToGameDetailsScreen(GameModel game) {
-    Get.toNamed(GameDetailsScreen.route, arguments: game);
+  void goToGameDetailsScreen(GameModel game,BuildContext context) async{
+    context.navigateTo(GameDetailsScreen.route,arguments: game);
+    // Get.toNamed(GameDetailsScreen.route, arguments: game);
   }
 
   buildGameListWidgetState() {
-    return BlocProvider(
-      create: (context) => homeCubit,
+    return BlocProvider.value(
+      value: homeCubit,
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
-          switch (state.runtimeType) {
-            case HomeInitial:
+          switch (state) {
+            case HomeInitial():
               return buildLoadingGamesWidget();
-            case HomeLoading:
+            case HomeLoading():
               return buildLoadingGamesWidget();
-            case HomeSuccess || HomeLoadingMore || HomeLoadMoreError:
+            case HomeSuccess() || HomeLoadingMore() || HomeLoadMoreError():
               print("LostLensht ${homeCubit.gamesList.list?.length}");
               return buildGamesWidget(homeCubit.gamesList.list ?? []);
-            case HomeError:
+            case HomeError():
               return buildErrorConnectionWidget(state);
             default:
               return const Text('Unexpected state');
@@ -144,10 +155,10 @@ class HomeScreen extends StatelessWidget {
   }
 
   buildLoadMoreState() {
-    switch (homeCubit.state.runtimeType) {
-      case HomeLoadingMore:
+    switch (homeCubit.state) {
+      case HomeLoadingMore():
         return buildLoadMoreLoading();
-      case HomeLoadMoreError:
+      case HomeLoadMoreError():
         return Padding(
           padding: const EdgeInsets.all(12.0),
           child: InkWell(
@@ -175,4 +186,5 @@ class HomeScreen extends StatelessWidget {
             : Colors.grey[100]!,
         child: ItemGameShimmer());
   }
+
 }

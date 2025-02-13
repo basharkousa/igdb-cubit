@@ -24,8 +24,8 @@ class BackGroundThemeWidget extends StatelessWidget {
         : Image.asset(
       Assets.images.ivBlurLight.path,
       fit: BoxFit.cover,
-      width: Get.width,
-      height: Get.height,
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
     );
   }
 }

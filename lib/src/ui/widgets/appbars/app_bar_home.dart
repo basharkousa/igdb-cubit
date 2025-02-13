@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:igameapp/src/ui/screens/gamesscreens/savedgamesscreen/saved_games_screen.dart';
-import 'package:igameapp/src/ui/screens/settingscreen/settings_screen.dart';
+import 'package:igameapp/src/configs/navigation/extension.dart';
 import 'package:igameapp/src/ui/widgets/buttons/button_rounded.dart';
 import 'package:igameapp/src/ui/widgets/common/extentions.dart';
+import 'dart:collection';
 
 class AppBarHome extends StatelessWidget implements PreferredSizeWidget{
   final bool transparent;
   final String? title;
   final Color? backgroundColor;
+  final Function? onSettingClick;
+  final Function? onHistoryClick;
 
-  AppBarHome({super.key, this.transparent = false, this.title,this.backgroundColor});
+  AppBarHome({super.key, this.transparent = false, this.title,this.backgroundColor,this.onSettingClick,this.onHistoryClick});
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +35,13 @@ class AppBarHome extends StatelessWidget implements PreferredSizeWidget{
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       ButtonRounded(icon: Icon(Icons.settings),).onClickBounce(() {
-                        Get.toNamed(SettingsScreen.route);
+                        (onSettingClick ?? () {})();
                       }),
-                      SizedBox(width: 10.w,),
+                      SizedBox(width: 8.w,),
+                      ButtonRounded(icon: Icon(Icons.history),).onClickBounce(() {
+                        (onHistoryClick??(){})();
+                      }),
+                      SizedBox(width: 2.w,),
                     ],)),
                 Align(alignment: AlignmentDirectional.centerStart,child: Text(
                   title??"title",
@@ -60,3 +65,4 @@ class AppBarHome extends StatelessWidget implements PreferredSizeWidget{
   @override
   Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
 }
+

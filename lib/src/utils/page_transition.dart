@@ -42,7 +42,6 @@ class PageTransition<T> extends PageRouteBuilder<T> {
         switch (type) {
           case PageTransitionType.fade:
             return FadeTransition(opacity: animation, child: child);
-            break;
           case PageTransitionType.rightToLeft:
             return SlideTransition(
               transformHitTests: false,
@@ -58,7 +57,6 @@ class PageTransition<T> extends PageRouteBuilder<T> {
                 child: child,
               ),
             );
-            break;
           case PageTransitionType.leftToRight:
             return SlideTransition(
               transformHitTests: false,
@@ -74,7 +72,6 @@ class PageTransition<T> extends PageRouteBuilder<T> {
                 child: child,
               ),
             );
-            break;
           case PageTransitionType.upToDown:
             return SlideTransition(
               transformHitTests: false,
@@ -90,7 +87,6 @@ class PageTransition<T> extends PageRouteBuilder<T> {
                 child: child,
               ),
             );
-            break;
           case PageTransitionType.downToUp:
             return SlideTransition(
               transformHitTests: false,
@@ -106,7 +102,6 @@ class PageTransition<T> extends PageRouteBuilder<T> {
                 child: child,
               ),
             );
-            break;
           case PageTransitionType.scale:
             return ScaleTransition(
               alignment: alignment!,
@@ -120,7 +115,6 @@ class PageTransition<T> extends PageRouteBuilder<T> {
               ),
               child: child,
             );
-            break;
           case PageTransitionType.rotate:
             return RotationTransition(
               alignment: alignment!,
@@ -134,7 +128,6 @@ class PageTransition<T> extends PageRouteBuilder<T> {
                 ),
               ),
             );
-            break;
           case PageTransitionType.size:
             return Align(
               alignment: alignment!,
@@ -146,7 +139,6 @@ class PageTransition<T> extends PageRouteBuilder<T> {
                 child: child,
               ),
             );
-            break;
           case PageTransitionType.rightToLeftWithFade:
             return SlideTransition(
               position: Tween<Offset>(

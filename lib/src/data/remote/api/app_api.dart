@@ -21,9 +21,8 @@ class AppApi implements IAppApi{
   @override
   Future<BaseResponse<GameModel>> getGamesRequest(Map<String, dynamic> map) async {
     map["fields"] = "*,cover.*,screenshots.*,videos.*,genres.*,player_perspectives.*";
-    final res = await _dioClient.get(Endpoints.games,
-        queryParameters: map);
-    return BaseResponse<GameModel>.fromJson(json: res,fromJsonMapper: GameModel.fromJson);
+    final res = await _dioClient.get(Endpoints.games, queryParameters: map);
+    return BaseResponse<GameModel>.fromJson(json: res,fromJsonMapper: GameModel.fromJson,);
   }
 
 }

@@ -37,10 +37,7 @@ class AppBindings extends Bindings {
       return HomeCubit(Get.find(),);
     }, fenix: true);
 
-    //Multi instances
-    Get.create<GameDetailsCubit>(() {
-      return GameDetailsCubit(Get.find());
-    });
+
 
     // Get.lazyPut<SettingsController>(() {
     //   return SettingsController();

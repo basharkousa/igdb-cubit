@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 class ButtonDefault extends StatelessWidget {
   final Color? backgroundColor;
@@ -19,7 +18,7 @@ class ButtonDefault extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Get.width,
+      width: double.infinity,
       height: 52.h,
       margin: noMargin
           ? null

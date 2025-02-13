@@ -1,5 +1,3 @@
-import 'dart:isolate';
-
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:igameapp/src/data/models/BaseResponse.dart';
@@ -18,8 +16,6 @@ class AppController extends GetxController with GetTickerProviderStateMixin {
 
 
   RxBool isUserClientLoggedIn = false.obs;
-
-
 
   @override
   void onInit() async {
@@ -47,15 +43,14 @@ class AppController extends GetxController with GetTickerProviderStateMixin {
     // Get.offAllNamed(HomePage.homePageRoute);
   }
 
-  checkUserLogin({required Function? isLogged, Function? isNotLogged}) {
+  checkUserLogin({required Function isLogged, Function? isNotLogged}) {
     if (isUserClientLoggedIn.value) {
-      isLogged!();
+      isLogged();
     } else {
       //isNotLogged();
       // Get.toNamed(LoginPage.loginPageRoute);
     }
   }
-
 
   //Here Just Elaboration for how can we Call apis in the app
   var gamesResponseLiveData = ApiState<BaseResponse<GameModel>>.loading().obs;
@@ -66,6 +61,7 @@ class AppController extends GetxController with GetTickerProviderStateMixin {
       gamesResponseLiveData.value = event;
     });
   }
+
   getGames() async {
     gamesResponseLiveData.value = ApiState.loading();
     try {
@@ -81,4 +77,5 @@ class AppController extends GetxController with GetTickerProviderStateMixin {
       print('OtherException:$error $stacktrace');
     }
   }
+
 }

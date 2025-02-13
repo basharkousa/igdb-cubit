@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:igameapp/src/configs/navigation/route_observer.dart';
 import 'package:igameapp/src/di/getit/injection.dart';
-import '../generated/locales.g.dart';
 import 'configs/app_theme.dart';
 import 'configs/navigation/routes.dart';
 import 'data/local/datasources/sharedpref/shared_preference_helper.dart';
-import 'di/bindings/app_binding.dart';
 import 'ui/screens/getStartedScreens/splashScreen/splash_screen.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+   const App({super.key});
 
-  @override
+   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -29,21 +28,21 @@ class App extends StatelessWidget {
       splitScreenMode: true,
       designSize: const Size(375, 812),
       builder: (context, child) {
-        return GetMaterialApp(
-          fallbackLocale: const Locale('en', 'US'),
+        return MaterialApp(
+          // fallbackLocale: const Locale('en', 'US'),
           locale: Get.deviceLocale,
           // locale: Locale('en'),
           // locale: Locale(
           //     Get.find<SharedPreferenceHelper>().currentLanguage ?? 'en'),
-          translationsKeys: AppTranslation.translations,
+          // translationsKeys: AppTranslation.translations,
           debugShowMaterialGrid: false,
           title: "My Games App",
           // theme: AppTheme.darkTheme(Get.find<SharedPreferenceHelper>().currentLanguage??'ar'),
           // theme: AppTheme.getAppThem(Get.find<SharedPreferenceHelper>().themeMode??'dark'),
           theme: AppTheme.getAppThem(getIt<SharedPreferenceHelper>().themeMode??'dark'),
           initialRoute: SplashScreenPage.route,
-          // home:const SplashScreenPage(),
-          getPages: Routes.getPages,
+          navigatorObservers: [MyRouteObserver()],
+          routes: Routes.routes,
           onGenerateRoute: Routes.generateRoute,
         );
       },

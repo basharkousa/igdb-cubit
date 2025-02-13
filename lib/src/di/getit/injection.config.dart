@@ -10,6 +10,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
+import 'package:igameapp/src/configs/navigation/route_setting.dart' as _i991;
 import 'package:igameapp/src/controllers/app_controller.dart' as _i107;
 import 'package:igameapp/src/data/local/datasources/floor/app_database.dart'
     as _i898;
@@ -49,9 +50,11 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
+    final appModule = _$AppModule();
     final remoteModule = _$RemoteModule();
     final localModule = _$LocalModule();
-    final appModule = _$AppModule();
+    gh.lazySingleton<_i991.RouteSettingsService>(
+        () => appModule.routeSettingsService);
     gh.lazySingleton<_i539.RestClient>(() => remoteModule.restClient);
     gh.lazySingleton<_i361.Dio>(() => remoteModule.dio());
     await gh.lazySingletonAsync<_i460.SharedPreferences>(
@@ -89,12 +92,14 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i638.RemoteDataSource>(),
           gh<_i717.LocalDataSource>(),
         ));
+    gh.factory<_i591.GameDetailsCubit>(() => appModule.gameDetailsCubit(
+          gh<_i787.Repository>(),
+          gh<_i991.RouteSettingsService>(),
+        ));
     gh.factory<_i869.SettingsController>(
         () => appModule.settingsController(gh<_i787.Repository>()));
     gh.factory<_i981.SplashCubit>(
         () => appModule.splashCubit(gh<_i787.Repository>()));
-    gh.factory<_i591.GameDetailsCubit>(
-        () => appModule.gameDetailsCubit(gh<_i787.Repository>()));
     gh.lazySingleton<_i107.AppController>(
         () => appModule.appController(gh<_i787.Repository>()));
     gh.lazySingleton<_i275.HomeCubit>(
@@ -103,8 +108,12 @@ extension GetItInjectableX on _i174.GetIt {
   }
 }
 
+class _$AppModule extends _i483.AppModule {
+  @override
+  _i991.RouteSettingsService get routeSettingsService =>
+      _i991.RouteSettingsService();
+}
+
 class _$RemoteModule extends _i146.RemoteModule {}
 
 class _$LocalModule extends _i818.LocalModule {}
-
-class _$AppModule extends _i483.AppModule {}
