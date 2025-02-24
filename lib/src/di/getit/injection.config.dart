@@ -12,6 +12,7 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:igameapp/src/configs/navigation/route_setting.dart' as _i991;
 import 'package:igameapp/src/controllers/app_controller.dart' as _i107;
+import 'package:igameapp/src/controllers/cubit/app_cubit.dart' as _i477;
 import 'package:igameapp/src/data/local/datasources/floor/app_database.dart'
     as _i898;
 import 'package:igameapp/src/data/local/datasources/floor/dao/game_dao.dart'
@@ -24,6 +25,7 @@ import 'package:igameapp/src/data/remote/api/clients/dio_client.dart' as _i11;
 import 'package:igameapp/src/data/remote/api/clients/rest_client.dart' as _i539;
 import 'package:igameapp/src/data/remote/api/moduls/auth_api.dart' as _i424;
 import 'package:igameapp/src/data/remote/remote_data_source.dart' as _i638;
+import 'package:igameapp/src/data/repositories/app/app_repo.dart' as _i3;
 import 'package:igameapp/src/data/repository.dart' as _i787;
 import 'package:igameapp/src/di/getit/modules/app_modules.dart' as _i483;
 import 'package:igameapp/src/di/getit/modules/local_modules.dart' as _i818;
@@ -71,6 +73,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => remoteModule.dioClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i626.SharedPreferenceHelper>(() =>
         localModule.sharedPreferenceHelper(gh<_i460.SharedPreferences>()));
+    gh.lazySingleton<_i3.AppRepo>(
+        () => appModule.appRepository(gh<_i626.SharedPreferenceHelper>()));
     gh.lazySingleton<_i56.AppApi>(() => remoteModule.appApi(
           gh<_i11.DioClient>(),
           gh<_i539.RestClient>(),
@@ -83,6 +87,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i626.SharedPreferenceHelper>(),
           gh<_i864.GameDao>(),
         ));
+    gh.lazySingleton<_i477.AppCubit>(
+        () => appModule.appCubit(gh<_i3.AppRepo>()));
     gh.lazySingleton<_i638.RemoteDataSource>(
         () => remoteModule.remoteDataSource(
               gh<_i56.AppApi>(),

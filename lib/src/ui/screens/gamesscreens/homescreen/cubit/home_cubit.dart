@@ -120,7 +120,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> onRefresh() async {
-    // getGames();
+    getGames();
     getLocalGamesList();
   }
 

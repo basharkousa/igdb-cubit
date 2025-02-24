@@ -5,12 +5,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:igameapp/src/configs/navigation/extension.dart';
 import 'package:igameapp/src/di/getit/injection.dart';
-import 'package:igameapp/src/ui/screens/gamesscreens/homescreen/cubit/home_cubit.dart';
 import 'package:igameapp/src/ui/screens/gamesscreens/homescreen/home_screen.dart';
 import 'package:igameapp/src/ui/screens/getstartedscreens/splashscreen/cubit/splash_cubit.dart';
 import 'package:igameapp/src/ui/widgets/common/state_ful_wrapper.dart';
+import 'package:igameapp/src/utils/extensions.dart';
 import '../../../../../generated/locales.g.dart';
-import '../../../widgets/common/getx_state_widget.dart';
 import '../../../widgets/sections/app_logo_widget.dart';
 import '../../../widgets/sections/background_theme_widget.dart';
 
@@ -82,7 +81,7 @@ class SplashScreenPage extends StatelessWidget {
                         height: 21.h,
                       ),
                       Text(
-                        LocaleKeys.explore_your_interesting_games.tr,
+                        context.l.explore_your_interesting_games,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 14.sp,

@@ -13,6 +13,7 @@ import 'package:igameapp/src/ui/widgets/appbars/app_bar_default.dart';
 import 'package:igameapp/src/ui/widgets/buttons/button_default.dart';
 import 'package:igameapp/src/ui/widgets/common/extentions.dart';
 import 'package:igameapp/src/ui/widgets/items/item_game.dart';
+import 'package:igameapp/src/utils/extensions.dart';
 import 'package:shimmer/shimmer.dart';
 
 class SavedGamesScreen extends StatelessWidget{
@@ -30,7 +31,7 @@ class SavedGamesScreen extends StatelessWidget{
       bottom: false,
       child: Scaffold(
         appBar: AppBarDefault(
-          title: LocaleKeys.saved_games.tr,
+          title: context.l.saved_games,
         ),
         body: Column(
           children: [
@@ -79,7 +80,7 @@ class SavedGamesScreen extends StatelessWidget{
             )),
           ],
         ),
-        bottomNavigationBar: buildButtonClearHistory(),
+        bottomNavigationBar: buildButtonClearHistory(context),
       ),
     );
   }
@@ -114,9 +115,9 @@ class SavedGamesScreen extends StatelessWidget{
   }
 
 
-  buildButtonClearHistory() {
+  buildButtonClearHistory(BuildContext context) {
     return ButtonDefault(
-      title: LocaleKeys.remove_games.tr,
+      title: context.l.remove_games,
     ).onClickBounce((){
       homeCubit.clearGamesHistory();
     });

@@ -1,0 +1,21 @@
+{
+  "title": "Hallo!",
+  "message": "Dit is Engels",
+  "connection_error": "Controleer uw internetverbinding",
+  "no_internet": "Geen internetverbinding",
+  "looks_like_you_have_lost_connection": "Het lijkt erop dat u de verbinding met wifi of\nandere internetverbinding bent verloren",
+  "try_these_steps": "Probeer deze stappen om weer online te komen:",
+  "check_your_modem_and_router": "Controleer uw modem en router",
+  "reconnect_to_Wi_Fi": "Maak opnieuw verbinding met wifi",
+  "reload": "OPNIEUW LADEN",
+  "explore_your_interesting_games": "Verken je interessante spellen",
+  "saved_games": "Opgeslagen spellen",
+  "summary": "Samenvatting",
+  "popular_games_right_now": "Populaire spellen op dit moment",
+  "add": "Toevoegen",
+  "update": "Bijwerken",
+  "edit": "Bewerken",
+  "delete": "Verwijderen",
+  "settings": "Instellingen",
+  "remove_games": "Spellen verwijderen"
+}

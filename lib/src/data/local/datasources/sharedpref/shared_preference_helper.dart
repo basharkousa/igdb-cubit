@@ -81,24 +81,27 @@ class SharedPreferenceHelper {
 
   // Language:---------------------------------------------------
   String? get currentLanguage {
-    return _sharedPreference.getString('language_code')??"en";
+    return _sharedPreference.getString(Preferences.current_language)??"en";
   }
 
   Future<Locale> fetchLocale() async {
     Locale locale = const Locale('en', 'US');
-    print("Current_Language_preff ${_sharedPreference.getString('language_code')}");
-    if (_sharedPreference.getString('language_code') == null) {
+    print("Current_Language_preff ${_sharedPreference.getString(Preferences.current_language)}");
+    if (_sharedPreference.getString(Preferences.current_language) == null) {
       locale = const Locale('en', 'US');
       return locale;
     }
-    locale = Locale(_sharedPreference.getString('language_code')!);
+    locale = Locale(_sharedPreference.getString(Preferences.current_language)??'en');
     return locale;
   }
 
-  // Future<void> changeLanguage(String language) {
-  //   return _sharedPreference.then((prefs) {
-  //     return prefs.setString(Preferences.current_language, language);
-  //   });
-  // }
+  Future<void> changeLanguage(String language) {
+    return _sharedPreference.setString(Preferences.current_language, language);
+  }
+
+
+  Future<void> changeTheme(String theme) {
+    return _sharedPreference.setString(Preferences.theme_mode, theme);
+  }
 
 }

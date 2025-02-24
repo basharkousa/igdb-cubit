@@ -1,8 +1,11 @@
 import 'package:igameapp/src/configs/navigation/route_setting.dart';
 import 'package:igameapp/src/controllers/app_controller.dart';
+import 'package:igameapp/src/controllers/cubit/app_cubit.dart';
+import 'package:igameapp/src/data/local/datasources/sharedpref/shared_preference_helper.dart';
 import 'package:igameapp/src/data/local/local_data_source.dart';
 import 'package:igameapp/src/data/models/gamesmodels/game_model.dart';
 import 'package:igameapp/src/data/remote/remote_data_source.dart';
+import 'package:igameapp/src/data/repositories/app/app_repo.dart';
 import 'package:igameapp/src/data/repository.dart';
 import 'package:igameapp/src/ui/screens/gamesscreens/gamedetailsscreen/cubit/game_details_cubit.dart';
 import 'package:igameapp/src/ui/screens/gamesscreens/homescreen/cubit/home_cubit.dart';
@@ -20,6 +23,16 @@ abstract class AppModule {
   Repository repository(
           RemoteDataSource remoteDataSource, LocalDataSource localDataSource) =>
       Repository(remoteDataSource, localDataSource);
+
+  @lazySingleton
+  AppRepo appRepository(
+      SharedPreferenceHelper sharedPreferenceHelper) =>
+      AppRepo(sharedPreferenceHelper);
+
+  @lazySingleton
+  AppCubit appCubit(AppRepo appRepo) =>
+      AppCubit(appRepo);
+
 
   @lazySingleton
   AppController appController(Repository repository) =>

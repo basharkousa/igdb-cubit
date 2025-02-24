@@ -5,12 +5,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:igameapp/generated/locales.g.dart';
 import 'package:igameapp/src/configs/colors.dart';
 import 'package:igameapp/src/configs/dimens.dart';
+import 'package:igameapp/src/configs/navigation/extension.dart';
 import 'package:igameapp/src/di/getit/injection.dart';
 import 'package:igameapp/src/ui/screens/gamesscreens/gamedetailsscreen/cubit/game_details_cubit.dart';
 import 'package:igameapp/src/ui/widgets/appbars/app_bar_details.dart';
 import 'package:igameapp/src/ui/widgets/buttons/button_rounded.dart';
 import 'package:igameapp/src/ui/widgets/common/my_cached_network_widget.dart';
 import 'package:igameapp/src/ui/widgets/common/sliver_app_bar_delegate.dart';
+import 'package:igameapp/src/utils/extensions.dart';
 import 'package:readmore/readmore.dart';
 
 class GameDetailsScreen extends StatelessWidget {
@@ -164,7 +166,7 @@ class GameDetailsScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: Dimens.mainMargin),
             child: Text(
-              LocaleKeys.summary.tr,
+              context.l.summary,
               style: TextStyle(fontWeight: FontWeight.w600),
             ),
           ),
@@ -242,7 +244,7 @@ class GameDetailsScreen extends StatelessWidget {
               return GestureDetector(
                 onTap: () {
                   showPhotoViewDialog(
-                      "https://images.igdb.com/igdb/image/upload/t_screenshot_big/${(detailsCubit.state as GameDetailsInitial).game?.screenshots?[index].imageId}.jpg");
+                      "https://images.igdb.com/igdb/image/upload/t_screenshot_big/${(detailsCubit.state as GameDetailsInitial).game?.screenshots?[index].imageId}.jpg",context);
                 },
                 child: Container(
                   // width: 166.w,
@@ -271,40 +273,42 @@ class GameDetailsScreen extends StatelessWidget {
           );
   }
 
-  void showPhotoViewDialog(String? sImage) {
-    Get.dialog(Container(
-      margin: EdgeInsetsDirectional.all(8.h),
-      height: Get.height,
-      width: Get.width,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          GestureDetector(
-              onTap: () {
-                Get.back();
-              },
-              child: ButtonRounded()),
-          SizedBox(
-            height: 10.h,
-          ),
-          Expanded(
-            child: Container(
-              // padding: EdgeInsetsDirectional.all(Dimens.main_margin),
-              child: Center(
-                // child: Image.asset(Assets.images.imProductFullImage.path),
-                // child: MyCachedNetworkImage(imUrl: "https://compote.slate.com/images/22ce4663-4205-4345-8489-bc914da1f272.jpeg?crop=1560%2C1040%2Cx0%2Cy0&width=960",),
-                child: Container(
-                  height: Get.height,
-                  child: MyCachedNetworkImage(
-                    imUrl: sImage,
-                    fit: BoxFit.contain,
+  void showPhotoViewDialog(String? sImage,BuildContext context) {
+    showDialog(context: context, builder: (context){
+      return Container(
+        margin: EdgeInsetsDirectional.all(8.h),
+        height: double.infinity,
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GestureDetector(
+                onTap: () {
+                  context.pop();
+                },
+                child: ButtonRounded()),
+            SizedBox(
+              height: 10.h,
+            ),
+            Expanded(
+              child: Container(
+                // padding: EdgeInsetsDirectional.all(Dimens.main_margin),
+                child: Center(
+                  // child: Image.asset(Assets.images.imProductFullImage.path),
+                  // child: MyCachedNetworkImage(imUrl: "https://compote.slate.com/images/22ce4663-4205-4345-8489-bc914da1f272.jpeg?crop=1560%2C1040%2Cx0%2Cy0&width=960",),
+                  child: Container(
+                    height: double.infinity,
+                    child: MyCachedNetworkImage(
+                      imUrl: sImage,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    ));
+          ],
+        ),
+      );
+    });
   }
 }

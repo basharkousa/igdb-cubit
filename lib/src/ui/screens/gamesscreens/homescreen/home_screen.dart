@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:igameapp/generated/locales.g.dart';
 import 'package:igameapp/src/configs/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:igameapp/src/configs/localization/l10n/app_localizations.dart';
 import 'package:igameapp/src/configs/navigation/extension.dart';
 import 'package:igameapp/src/data/models/gamesmodels/game_model.dart';
 import 'package:igameapp/src/di/getit/injection.dart';
@@ -13,6 +13,7 @@ import 'package:igameapp/src/ui/screens/gamesscreens/savedgamesscreen/saved_game
 import 'package:igameapp/src/ui/screens/settingscreen/settings_screen.dart';
 import 'package:igameapp/src/ui/widgets/appbars/app_bar_home.dart';
 import 'package:igameapp/src/ui/widgets/items/item_game.dart';
+import 'package:igameapp/src/utils/extensions.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -29,7 +30,7 @@ class HomeScreen extends StatelessWidget {
       bottom: false,
       child: Scaffold(
         appBar: AppBarHome(
-          title: LocaleKeys.popular_games_right_now.tr,
+          title: context.l.popular_games_right_now??"",
           onSettingClick: (){
             print("Bdadba");
             context.navigateTo(SettingsScreen.route);
@@ -98,8 +99,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget buildErrorConnectionWidget(HomeState state) {
-    return (state as HomeError).localGames.length >
-            0 // Check for local games state
+    return (state as HomeError).localGames.isNotEmpty // Check for local games state
         ? buildGamesWidget(state.localGames)
         : Center(
             child: Text("No Cashed Games"),

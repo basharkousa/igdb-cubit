@@ -49,10 +49,12 @@ class Routes {
           type: PageTransitionType.fade,
         );
       case SavedGamesScreen.route:
-        return PageTransition(
-          child: SavedGamesScreen(homeCubit:getIt<HomeCubit>()),
-          type: PageTransitionType.fade,
-        );
+        return MaterialPageRoute(
+            settings: settings,
+            barrierDismissible: true,
+            builder: (_){
+          return SavedGamesScreen(homeCubit:getIt<HomeCubit>());
+        });
 
       default:
         return MaterialPageRoute(

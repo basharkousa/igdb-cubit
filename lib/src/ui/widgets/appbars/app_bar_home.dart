@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:igameapp/src/configs/navigation/extension.dart';
 import 'package:igameapp/src/ui/widgets/buttons/button_rounded.dart';
 import 'package:igameapp/src/ui/widgets/common/extentions.dart';
-import 'dart:collection';
 
 class AppBarHome extends StatelessWidget implements PreferredSizeWidget{
   final bool transparent;
@@ -12,7 +10,7 @@ class AppBarHome extends StatelessWidget implements PreferredSizeWidget{
   final Function? onSettingClick;
   final Function? onHistoryClick;
 
-  AppBarHome({super.key, this.transparent = false, this.title,this.backgroundColor,this.onSettingClick,this.onHistoryClick});
+  const AppBarHome({super.key, this.transparent = false, this.title,this.backgroundColor,this.onSettingClick,this.onHistoryClick});
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +24,22 @@ class AppBarHome extends StatelessWidget implements PreferredSizeWidget{
         padding: EdgeInsets.only(top: 0.h),
         child: Column(
           children: [
-            Stack(
-              alignment: AlignmentDirectional.center,
+            Row(
+              // alignment: AlignmentDirectional.center,
               children: [
+                Expanded(
+                  // alignment: AlignmentDirectional.centerStart,
+                  child: Text(
+                    title??"title",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      // color: Color(0xFF151515),
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w700,
+                      height: 0,
+                    ),
+                  ),),
+                SizedBox(width: 4.w,),
                 Align(
                   alignment: AlignmentDirectional.centerEnd,
                   child: Row(
@@ -43,16 +54,6 @@ class AppBarHome extends StatelessWidget implements PreferredSizeWidget{
                       }),
                       SizedBox(width: 2.w,),
                     ],)),
-                Align(alignment: AlignmentDirectional.centerStart,child: Text(
-                  title??"title",
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    // color: Color(0xFF151515),
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w700,
-                    height: 0,
-                  ),
-                ),),
               ],
             ),
             SizedBox(height: 8.h,),
