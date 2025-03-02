@@ -96,7 +96,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `GameEntity` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `rating` REAL NOT NULL, `imgUrl` TEXT NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `GameEntity` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `rating` REAL NOT NULL, `imgUrl` TEXT NOT NULL, `isFavourite` INTEGER NOT NULL, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -122,7 +122,8 @@ class _$GameDao extends GameDao {
                   'id': item.id,
                   'name': item.name,
                   'rating': item.rating,
-                  'imgUrl': item.imgUrl
+                  'imgUrl': item.imgUrl,
+                  'isFavourite': item.isFavourite ? 1 : 0
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -140,7 +141,8 @@ class _$GameDao extends GameDao {
             id: row['id'] as int,
             name: row['name'] as String,
             imgUrl: row['imgUrl'] as String,
-            rating: row['rating'] as double));
+            rating: row['rating'] as double,
+            isFavourite: (row['isFavourite'] as int) != 0));
   }
 
   @override

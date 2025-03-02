@@ -18,5 +18,4 @@ abstract class GameDao {
   @Query('DELETE FROM GameEntity')
   Future<void> deleteAllGames();
 
-
 }

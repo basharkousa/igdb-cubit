@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-import '../../configs/colors.dart';
+import '../../configs/theme/colors.dart';
 import 'carousel_pro_widgets.dart';
 
 class GalleryExampleItem {

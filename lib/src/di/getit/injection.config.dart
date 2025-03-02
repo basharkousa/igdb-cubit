@@ -10,34 +10,29 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
+import 'package:igameapp/src/appcubit/app_cubit.dart' as _i872;
 import 'package:igameapp/src/configs/navigation/route_setting.dart' as _i991;
-import 'package:igameapp/src/controllers/app_controller.dart' as _i107;
-import 'package:igameapp/src/controllers/cubit/app_cubit.dart' as _i477;
 import 'package:igameapp/src/data/local/datasources/floor/app_database.dart'
     as _i898;
 import 'package:igameapp/src/data/local/datasources/floor/dao/game_dao.dart'
     as _i864;
 import 'package:igameapp/src/data/local/datasources/sharedpref/shared_preference_helper.dart'
     as _i626;
-import 'package:igameapp/src/data/local/local_data_source.dart' as _i717;
-import 'package:igameapp/src/data/remote/api/app_api.dart' as _i56;
 import 'package:igameapp/src/data/remote/api/clients/dio_client.dart' as _i11;
 import 'package:igameapp/src/data/remote/api/clients/rest_client.dart' as _i539;
-import 'package:igameapp/src/data/remote/api/moduls/auth_api.dart' as _i424;
-import 'package:igameapp/src/data/remote/remote_data_source.dart' as _i638;
 import 'package:igameapp/src/data/repositories/app/app_repo.dart' as _i3;
-import 'package:igameapp/src/data/repository.dart' as _i787;
+import 'package:igameapp/src/data/repositories/game/game_repo.dart' as _i358;
 import 'package:igameapp/src/di/getit/modules/app_modules.dart' as _i483;
 import 'package:igameapp/src/di/getit/modules/local_modules.dart' as _i818;
 import 'package:igameapp/src/di/getit/modules/remote_modules.dart' as _i146;
-import 'package:igameapp/src/ui/screens/gamesscreens/gamedetailsscreen/cubit/game_details_cubit.dart'
-    as _i591;
-import 'package:igameapp/src/ui/screens/gamesscreens/homescreen/cubit/home_cubit.dart'
-    as _i275;
-import 'package:igameapp/src/ui/screens/getstartedscreens/splashscreen/cubit/splash_cubit.dart'
-    as _i981;
-import 'package:igameapp/src/ui/screens/settingscreen/settings_controller.dart'
-    as _i869;
+import 'package:igameapp/src/presentation/screens/gamesscreens/gamedetailsscreen/cubit/game_details_cubit.dart'
+    as _i1048;
+import 'package:igameapp/src/presentation/screens/gamesscreens/homescreen/cubit/home_cubit.dart'
+    as _i957;
+import 'package:igameapp/src/presentation/screens/getstartedscreens/splashscreen/cubit/splash_cubit.dart'
+    as _i1013;
+import 'package:igameapp/src/presentation/screens/settingscreen/cubit/settings_cubit.dart'
+    as _i502;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
@@ -75,41 +70,22 @@ extension GetItInjectableX on _i174.GetIt {
         localModule.sharedPreferenceHelper(gh<_i460.SharedPreferences>()));
     gh.lazySingleton<_i3.AppRepo>(
         () => appModule.appRepository(gh<_i626.SharedPreferenceHelper>()));
-    gh.lazySingleton<_i56.AppApi>(() => remoteModule.appApi(
+    gh.lazySingleton<_i358.GameRepo>(() => appModule.gameRepo(
           gh<_i11.DioClient>(),
-          gh<_i539.RestClient>(),
-        ));
-    gh.lazySingleton<_i424.AuthApi>(() => remoteModule.authApi(
-          gh<_i11.DioClient>(),
-          gh<_i539.RestClient>(),
-        ));
-    gh.lazySingleton<_i717.LocalDataSource>(() => localModule.localDataSource(
-          gh<_i626.SharedPreferenceHelper>(),
           gh<_i864.GameDao>(),
         ));
-    gh.lazySingleton<_i477.AppCubit>(
+    gh.lazySingleton<_i957.HomeCubit>(
+        () => appModule.homeCubit(gh<_i358.GameRepo>()));
+    gh.factory<_i1013.SplashCubit>(
+        () => appModule.splashCubit(gh<_i3.AppRepo>()));
+    gh.factory<_i502.SettingsCubit>(
+        () => appModule.settingsCubit(gh<_i3.AppRepo>()));
+    gh.lazySingleton<_i872.AppCubit>(
         () => appModule.appCubit(gh<_i3.AppRepo>()));
-    gh.lazySingleton<_i638.RemoteDataSource>(
-        () => remoteModule.remoteDataSource(
-              gh<_i56.AppApi>(),
-              gh<_i424.AuthApi>(),
-            ));
-    gh.lazySingleton<_i787.Repository>(() => appModule.repository(
-          gh<_i638.RemoteDataSource>(),
-          gh<_i717.LocalDataSource>(),
-        ));
-    gh.factory<_i591.GameDetailsCubit>(() => appModule.gameDetailsCubit(
-          gh<_i787.Repository>(),
+    gh.factory<_i1048.GameDetailsCubit>(() => appModule.gameDetailsCubit(
+          gh<_i358.GameRepo>(),
           gh<_i991.RouteSettingsService>(),
         ));
-    gh.factory<_i869.SettingsController>(
-        () => appModule.settingsController(gh<_i787.Repository>()));
-    gh.factory<_i981.SplashCubit>(
-        () => appModule.splashCubit(gh<_i787.Repository>()));
-    gh.lazySingleton<_i107.AppController>(
-        () => appModule.appController(gh<_i787.Repository>()));
-    gh.lazySingleton<_i275.HomeCubit>(
-        () => appModule.homeCubit(gh<_i787.Repository>()));
     return this;
   }
 }

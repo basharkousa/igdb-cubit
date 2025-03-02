@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:igameapp/src/di/getit/injection.dart';
-import 'package:igameapp/src/utils/my_http_overrides.dart';
+import 'src/di/getit/injection.dart';
+import 'src/utils/my_http_overrides.dart';
 import 'src/app.dart';
 
 //relative path

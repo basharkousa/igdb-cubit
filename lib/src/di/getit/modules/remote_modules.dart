@@ -1,11 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:dio_http_formatter/dio_http_formatter.dart';
-import 'package:igameapp/src/data/remote/api/app_api.dart';
 import 'package:igameapp/src/data/remote/api/clients/dio_client.dart';
 import 'package:igameapp/src/data/remote/api/clients/rest_client.dart';
-import 'package:igameapp/src/data/remote/api/moduls/auth_api.dart';
 import 'package:igameapp/src/data/remote/constants/endpoints.dart';
-import 'package:igameapp/src/data/remote/remote_data_source.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -60,17 +57,4 @@ abstract class RemoteModule {
   @lazySingleton
   RestClient get restClient => RestClient();
 
-  @lazySingleton
-  AppApi appApi(DioClient dioClient, RestClient restClient) =>
-      AppApi(dioClient, restClient);
-
-
-  @lazySingleton
-  AuthApi authApi(DioClient dioClient, RestClient restClient) =>
-      AuthApi(dioClient, restClient);
-
-  @lazySingleton
-  RemoteDataSource remoteDataSource(
-      AppApi appApi, AuthApi authApi) =>
-      RemoteDataSource(appApi, authApi);
 }

@@ -11,19 +11,24 @@ class GameEntity {
   final String name;
   final double rating;
   final String imgUrl;
+  final bool isFavourite;
 
   GameEntity(
       {required this.id,
       this.name = "Name",
       this.imgUrl = "",
-      this.rating = 0.0});
+      this.rating = 0.0,
+      this.isFavourite = false,
+      });
 
   static from(GameModel gameModel) {
     return GameEntity(
         id: gameModel.id ?? Random().nextInt(10),
         name: gameModel.name ?? "name",
         imgUrl: gameModel.cover?.url ?? "",
-        rating: gameModel.rating ?? 0.0);
+        rating: gameModel.rating ?? 0.0,
+        isFavourite: gameModel.isFavourite ?? false,
+    );
   }
 
   GameModel toGameModel(){
@@ -31,7 +36,8 @@ class GameEntity {
       id: id,
       name: name,
       cover: CoverModel(url: imgUrl),
-      rating: rating
+      rating: rating,
+      isFavourite: isFavourite
     );
   }
 

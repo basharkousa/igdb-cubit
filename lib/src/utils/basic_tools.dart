@@ -1,10 +1,7 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
-import 'package:igameapp/generated/assets.gen.dart';
-import '../configs/colors.dart';
+import '../configs/theme/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 
@@ -72,64 +69,15 @@ class BasicTools {
   static void showToastMessage(String? msg, {ToastGravity? gravity}
       //     {SnackPosition? gravity}
       ) {
-    // Get.snackbar(
-    //     msg??'Message',
-    //     '',
-    //     snackPosition: gravity ?? SnackPosition.TOP,
-    //     colorText: Colors.white,
-    //     backgroundColor:  Colors.black.withOpacity(0.8)
-    // );
-
     Fluttertoast.showToast(
       msg: msg ?? "This is Toast Message",
       toastLength: Toast.LENGTH_LONG,
       gravity: gravity ?? ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
-      backgroundColor: Get.theme.colorScheme.secondary,
+      backgroundColor: AppColors.lightAccent,
       textColor: Colors.white,
       fontSize: 16.0,
     );
-  }
-
-  static void showSnackBarMessage(String? msg,
-      // {ToastGravity? gravity,Color? backgroundColor,}
-          {SnackPosition? gravity,Function? onTap,bool? isDismissible,Duration? duration}
-      ) {
-
-    Get.snackbar("Alert!!", msg??"msg",
-        icon: Assets.icons.icCheckboxInternet.svg(height: 21.h,width: 21.w,colorFilter: ColorFilter.mode(Colors.green, BlendMode.srcIn)),
-        snackPosition: gravity?? SnackPosition.TOP,
-        duration: duration?? const Duration(seconds: 3),
-        isDismissible: isDismissible ?? true,
-        onTap: (e){
-          //todo add callback to somewhere for bidders in Auctions detailsPage
-          if(onTap != null){
-            onTap();
-          }
-        },
-        // backgroundGradient: LinearGradient(
-        //   // colors: [AppColors.startGrediant, AppColors.endGrediant],
-        //   begin: Alignment.topLeft,
-        //   end: Alignment.bottomRight,
-        // ),
-        backgroundColor: Colors.white,
-        colorText: Colors.black,
-        boxShadows: [BoxShadow(
-          color: Color(0x14484D4D),
-          blurRadius: 24.r,
-          offset: Offset(4, 8),
-          spreadRadius: 0,
-        )],
-        // colorText: AppColors.darkBlue,
-        borderRadius: 8);
-
-    // Get.snackbar(
-    //     msg??'Message',
-    //     '',
-    //     snackPosition: gravity ?? SnackPosition.TOP,
-    //     colorText: Colors.white,
-    //     backgroundColor:  Colors.black.withOpacity(0.8)
-    // );
   }
 
   static getCountryFlagIcon(var i) {
@@ -224,10 +172,10 @@ class BasicTools {
       cardType = CardType.Jcb;
     } else if (input.length <= 8) {
       cardType = CardType.Others;
-    } else if (input == null) {
+    } else {
       cardType = CardType.Invalid;
     }
-    return cardType!;
+    return cardType;
   }
 
   static RegExp reg = RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');

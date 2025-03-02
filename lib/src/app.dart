@@ -4,13 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:igameapp/src/configs/localization/l10n/app_localizations.dart';
 import 'package:igameapp/src/configs/navigation/route_observer.dart';
-import 'package:igameapp/src/controllers/cubit/app_cubit.dart';
-import 'package:igameapp/src/controllers/cubit/app_state.dart';
+import 'package:igameapp/src/appcubit/app_cubit.dart';
+import 'package:igameapp/src/appcubit/app_state.dart';
 import 'package:igameapp/src/di/getit/injection.dart';
-import 'configs/app_theme.dart';
+import 'configs/theme/app_theme.dart';
 import 'configs/navigation/routes.dart';
-import 'data/local/datasources/sharedpref/shared_preference_helper.dart';
-import 'ui/screens/getStartedScreens/splashScreen/splash_screen.dart';
+import 'presentation/screens/getStartedScreens/splashScreen/splash_screen.dart';
 
 class App extends StatelessWidget{
 
@@ -38,20 +37,16 @@ class App extends StatelessWidget{
           value: appCubit,
           child: BlocBuilder<AppCubit, AppState>(builder: (context,state){
             return MaterialApp(
-              // fallbackLocale: const Locale('en', 'US'),
+              key: appCubit.state.navigatorKey,
+              title: "My Games App",
               locale: state.locale,
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
-              // locale: Locale('en'),
-              // locale: Locale(
-              //     Get.find<SharedPreferenceHelper>().currentLanguage ?? 'en'),
-              // translationsKeys: AppTranslation.translations,
               debugShowMaterialGrid: false,
-              title: "My Games App",
               // theme: AppTheme.darkTheme(Get.find<SharedPreferenceHelper>().currentLanguage??'ar'),
               // theme: AppTheme.getAppThem(Get.find<SharedPreferenceHelper>().themeMode??'dark'),
               theme: AppTheme.getAppThem(
-                  getIt<SharedPreferenceHelper>().themeMode ?? 'dark'),
+                 state.themeMode , state.locale.languageCode),
               initialRoute: SplashScreenPage.route,
               navigatorObservers: [MyRouteObserver()],
               routes: Routes.routes,

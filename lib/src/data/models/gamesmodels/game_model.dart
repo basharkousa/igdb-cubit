@@ -35,7 +35,9 @@ class GameModel {
     List<VideoModel>? videos,
     List<num>? websites,
     String? checksum,
-    List<num>? gameLocalizations,}){
+    List<num>? gameLocalizations,
+    bool? isFavourite,
+  }){
     _id = id;
     _ratings = rating;
     _rateCount = ratingCount;
@@ -67,6 +69,7 @@ class GameModel {
     _websites = websites;
     _checksum = checksum;
     _gameLocalizations = gameLocalizations;
+    _isFavourite = isFavourite;
   }
 
   GameModel.fromJson(dynamic json) {
@@ -153,11 +156,14 @@ class GameModel {
   List<num>? _websites;
   String? _checksum;
   List<num>? _gameLocalizations;
+  bool? _isFavourite;
+
+
   GameModel copyWith({
     int? id,
     double? rating,
     int? rateCount,
-
+    bool? isFavourite,
     List<num>? ageRatings,
     List<num>? alternativeNames,
     num? category,
@@ -218,6 +224,7 @@ class GameModel {
     websites: websites ?? _websites,
     checksum: checksum ?? _checksum,
     gameLocalizations: gameLocalizations ?? _gameLocalizations,
+    isFavourite: isFavourite ?? _isFavourite,
   );
   int? get id => _id;
   double? get rating => _ratings;
@@ -250,6 +257,7 @@ class GameModel {
   List<num>? get websites => _websites;
   String? get checksum => _checksum;
   List<num>? get gameLocalizations => _gameLocalizations;
+  bool? get isFavourite => _isFavourite;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -294,6 +302,7 @@ class GameModel {
     map['websites'] = _websites;
     map['checksum'] = _checksum;
     map['game_localizations'] = _gameLocalizations;
+    map['is_favourite'] = _isFavourite;
     return map;
   }
 

@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:igameapp/src/di/getit/injection.dart';
-import 'package:igameapp/src/ui/screens/gamesscreens/gamedetailsscreen/cubit/game_details_cubit.dart';
-import 'package:igameapp/src/ui/screens/gamesscreens/gamedetailsscreen/game_details_screen.dart';
-import 'package:igameapp/src/ui/screens/gamesscreens/homescreen/cubit/home_cubit.dart';
-import 'package:igameapp/src/ui/screens/gamesscreens/homescreen/home_screen.dart';
-import 'package:igameapp/src/ui/screens/gamesscreens/savedgamesscreen/saved_games_screen.dart';
-import 'package:igameapp/src/ui/screens/settingscreen/settings_screen.dart';
-import 'package:igameapp/src/utils/page_transition.dart';
-import '../../ui/screens/getStartedScreens/splashScreen/splash_screen.dart';
+import '../../../src/di/getit/injection.dart';
+import '../../../src/presentation/screens/gamesscreens/gamedetailsscreen/cubit/game_details_cubit.dart';
+import '../../../src/presentation/screens/gamesscreens/gamedetailsscreen/game_details_screen.dart';
+import '../../../src/presentation/screens/gamesscreens/homescreen/cubit/home_cubit.dart';
+import '../../../src/presentation/screens/gamesscreens/homescreen/home_screen.dart';
+import '../../../src/presentation/screens/gamesscreens/savedgamesscreen/saved_games_screen.dart';
+import '../../../src/presentation/screens/settingscreen/cubit/settings_cubit.dart';
+import '../../../src/presentation/screens/settingscreen/settings_screen.dart';
+import '../../../src/utils/page_transition.dart';
+import '../../presentation/screens/getStartedScreens/splashScreen/splash_screen.dart';
 
 class Routes {
   Routes._();
 
   static final routes = <String, WidgetBuilder>{
     // SplashScreenPage.route: (BuildContext context) => SplashScreenPage(),
-    // SavedGamesScreen.route: (BuildContext context) => SavedGamesScreen(),
   };
 
   static Route<dynamic> generateRoute(
@@ -28,7 +28,7 @@ class Routes {
         );
       case HomeScreen.route:
         return PageTransition(
-            child: HomeScreen(),
+            child: HomeScreen(homeCubit: getIt<HomeCubit>(),),
             type: PageTransitionType.fade,
             duration: Duration(seconds: 1));
 
@@ -45,7 +45,7 @@ class Routes {
 
       case SettingsScreen.route:
         return PageTransition(
-          child: SettingsScreen(),
+          child: SettingsScreen(getIt<SettingsCubit>()),
           type: PageTransitionType.fade,
         );
       case SavedGamesScreen.route:
@@ -53,7 +53,7 @@ class Routes {
             settings: settings,
             barrierDismissible: true,
             builder: (_){
-          return SavedGamesScreen(homeCubit:getIt<HomeCubit>());
+          return SavedGamesScreen(homeCubit: getIt<HomeCubit>());
         });
 
       default:

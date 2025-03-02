@@ -1,7 +1,6 @@
 import 'package:igameapp/src/data/local/datasources/floor/app_database.dart';
 import 'package:igameapp/src/data/local/datasources/floor/dao/game_dao.dart';
 import 'package:igameapp/src/data/local/datasources/sharedpref/shared_preference_helper.dart';
-import 'package:igameapp/src/data/local/local_data_source.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,8 +25,4 @@ abstract class LocalModule {
   @lazySingleton
   GameDao gameDao(AppDatabase database) => database.gameDao;
 
-  @lazySingleton
-  LocalDataSource localDataSource(
-      SharedPreferenceHelper sharedPreferenceHelper,GameDao gameDao) =>
-      LocalDataSource(sharedPreferenceHelper,gameDao);
 }

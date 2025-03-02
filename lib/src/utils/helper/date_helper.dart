@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -7,7 +6,7 @@ class DateHelper {
     if (dateStr == null && dateTime == null) return "";
     DateTime? dt = dateTime ?? DateTime.tryParse(dateStr!)?.toLocal();
     if (dt == null) return "";
-    return timeago.format(dt, locale: Get.locale?.languageCode??"en",);
+    return timeago.format(dt, locale: "en",);
   }
 
   static String formatSpentTime(var spentSeconds) {

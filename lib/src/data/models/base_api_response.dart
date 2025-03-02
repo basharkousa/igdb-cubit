@@ -22,14 +22,14 @@ abstract class BaseApiResponse {
   Future<ApiState<T>> safeApiCall<T>(Future<T> Function() apiCall) async {
     try {
       var response = await apiCall();
-      if (response != null) return ApiState.completed(response);
-      return ApiState.error("some Error");
+      if (response != null) return ApiCompleted(response);
+      return ApiError("some Error");
     } on DioException catch (error, stacktrace) {
       print('DioError:$error $stacktrace');
-      return ApiState.error(DioErrorUtil.handleError(error));
+      return ApiError(DioErrorUtil.handleError(error)??"Error");
     } catch (error, stacktrace) {
       print('Error:$error $stacktrace');
-      return ApiState.error(error.toString());
+      return ApiError(error.toString());
     }
   }
 
