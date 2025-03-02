@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class ButtonRounded extends StatelessWidget {
-  Icon? icon;
-   ButtonRounded({super.key,this.icon});
+  final Icon? icon;
+   const ButtonRounded({super.key,this.icon});
 
   @override
   Widget build(BuildContext context) {
