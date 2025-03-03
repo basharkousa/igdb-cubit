@@ -1,52 +1,24 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:igameapp/src/data/models/api_state.dart';
+import 'package:igameapp/src/presentation/widgets/common/paginationcubit/base_pagination_cubit.dart';
 import 'package:igameapp/src/data/models/gamesmodels/game_model.dart';
 import 'package:igameapp/src/data/repositories/game/game_repo.dart';
 import 'package:igameapp/src/data/models/BaseResponse.dart';
-part 'home_state.dart';
 
-class HomeCubit extends Cubit<ApiState<BaseResponse<GameModel>>> {
+class HomeCubit extends BasePaginationCubit<GameModel> {
   final GameRepo repository;
 
-  HomeCubit(this.repository) : super(ApiLoading()) {
-    scrollController.addListener(() {
-      if (scrollController.position.maxScrollExtent ==
-          scrollController.position.pixels) {
-        print("End scrolling");
-        // loadMore();
-      }
-    });
-    getGames();
+  HomeCubit(this.repository) : super() {
+    // scrollController.addListener(_scrollListener);
+    // getGames();
   }
 
-  ScrollController scrollController = ScrollController();
-  int limit = 8;
-  int offset = 0;
-  bool isLoading = false;
-  BaseResponse<GameModel> gamesList = BaseResponse<GameModel>();
+  @override
+  Future<BaseResponse<GameModel>> fetchInitialList() async {
+    return repository.getGames({"limit": limit, "offset": 0});
+  }
 
-  Future<void> getGames() async {
-    emit(ApiLoading());
-    gamesList = BaseResponse<GameModel>();
-    offset = 0;
-    try {
-      BaseResponse<GameModel> gamesListResponse =
-      await repository.getGames({"limit": limit, "offset": offset});
-      final currentState = state;
-      await repository.removeGames();
-      await repository.addGames(gamesListResponse.list??[]);
-      gamesList = gamesListResponse;
-      emit(ApiCompleted(gamesList,));
-    } on DioException catch (error,stacktrace) {
-      var list = await getLocalGamesList();
-      gamesList = BaseResponse<GameModel>(list: list);
-      emit(ApiCompleted(gamesList));
-    } catch (error) {
-      var list = await getLocalGamesList();
-      emit(ApiError(error.toString()));
-    }
+  @override
+  Future<BaseResponse<GameModel>> fetchMoreList(int offset) async {
+    return repository.getGames({"limit": limit, "offset": offset});
   }
 
   /*Future<void> getGames() async {
@@ -138,15 +110,10 @@ class HomeCubit extends Cubit<ApiState<BaseResponse<GameModel>>> {
     return localGames ?? [];
   }
 
-  Future<void> onRefresh() async {
-    getGames();
-    getLocalGamesList();
-  }
-
   void clearGamesHistory() async {
-    await repository.removeGames();
+   /* await repository.removeGames();
     var list = await getLocalGamesList();
     // emit(HomeError("Error", list));
-    emit(ApiError("Error"));
+    emit(ApiError("Error"));*/
   }
 }

@@ -10,6 +10,8 @@ import 'package:igameapp/src/presentation/screens/gamesscreens/savedgamesscreen/
 import 'package:igameapp/src/presentation/screens/settingscreen/settings_screen.dart';
 import 'package:igameapp/src/presentation/widgets/appbars/app_bar_home.dart';
 import 'package:igameapp/src/presentation/widgets/common/bloc_state_widget.dart';
+import 'package:igameapp/src/presentation/widgets/common/error_widget.dart';
+import 'package:igameapp/src/presentation/widgets/common/paginationcubit/pagination_bloc_widget.dart';
 import 'package:igameapp/src/presentation/widgets/items/item_game.dart';
 import 'package:igameapp/src/utils/extensions.dart';
 import 'package:shimmer/shimmer.dart';
@@ -54,7 +56,7 @@ class HomeScreen extends StatelessWidget {
                       height: 16.h,
                     ),
                     // Without Pagination
-                    BlocStateWidget<BaseResponse<GameModel>, HomeCubit>(
+                    /*BlocStateWidget<BaseResponse<GameModel>, HomeCubit>(
                       cubit: homeCubit,
                       loadingWidget: buildLoadingGamesWidget(context),
                       contentWidget: (data) {
@@ -63,8 +65,18 @@ class HomeScreen extends StatelessWidget {
                       onRetryClicked: () {
                         homeCubit.getGames();
                       },
-                    ),
+                    ),*/
                     // buildGameListWidgetState(context),
+                    //pagination
+              PaginationBlocWidget<GameModel, HomeCubit>( // Specify T and C
+                cubit: homeCubit, // Pass your HomeCubit instance
+                contentWidget: (data) => buildGamesWidget(context,data?.list ?? []), // Your content widget
+                loadingWidget: buildLoadingGamesWidget(context),
+                loadingMoreWidget: buildLoadMoreLoading(context),
+                onRetryLoadMoreClicked: (){
+                  homeCubit.loadMore();
+                },
+              ),
                     SizedBox(
                       height: 48.h,
                     ),
@@ -85,9 +97,7 @@ class HomeScreen extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return ItemGame(
-                game: list != null
-                    ? list[index]
-                    : homeCubit.gamesList.list?[index],
+                game: list?[index],
                 onClick: (game) {
                   goToGameDetailsScreen(game, context);
                 },
@@ -100,12 +110,13 @@ class HomeScreen extends StatelessWidget {
             },
             itemCount: list != null
                 ? list.length
-                : homeCubit.gamesList.list?.length ?? 0),
-        buildLoadMoreState(context)
+                :0,),
+        // buildLoadMoreState(context)
       ],
     );
   }
 
+/*
   Widget buildErrorConnectionWidget(BuildContext context, HomeState state) {
     return (state as HomeError)
             .localGames?.isNotEmpty??false // Check for local games state
@@ -114,6 +125,7 @@ class HomeScreen extends StatelessWidget {
             child: Text("No Cashed Games"),
           );
   }
+*/
 
   Widget buildLoadingGamesWidget(BuildContext context) {
     return Shimmer.fromColors(
@@ -164,7 +176,7 @@ class HomeScreen extends StatelessWidget {
     );*/
   }
 
-  buildLoadMoreState(BuildContext context) {
+ /* buildLoadMoreState(BuildContext context) {
     switch (homeCubit.state) {
       case HomeLoadingMore():
         return buildLoadMoreLoading(context);
@@ -187,6 +199,8 @@ class HomeScreen extends StatelessWidget {
         );
     }
   }
+
+ */
 
   buildLoadMoreLoading(BuildContext context) {
     return Shimmer.fromColors(

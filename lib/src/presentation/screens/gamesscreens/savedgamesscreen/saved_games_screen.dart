@@ -82,13 +82,13 @@ class SavedGamesScreen extends StatelessWidget{
   }
 
 
-  Widget buildErrorConnectionWidget() {
+ /* Widget buildErrorConnectionWidget() {
     return (homeCubit.state as HomeError).localGames?.isNotEmpty??false // Check for local games state
         ? buildGamesWidget((homeCubit.state as HomeError).localGames??[])
         : Center(
       child: Text("No Cashed Games"),
     );
-  }
+  }*/
 
   Widget buildGamesWidget(List<GameModel> list) {
     return ListView.separated(

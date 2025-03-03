@@ -1,3 +1,4 @@
+/*
 part of 'home_cubit.dart';
 
 @immutable
@@ -40,3 +41,4 @@ class HomeLoadMoreError extends HomeState {
   HomeLoadMoreError(this.message);
 
 }
+*/
