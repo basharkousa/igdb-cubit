@@ -6,6 +6,8 @@ import 'package:igameapp/src/data/models/gamesmodels/game_model.dart';
 import 'package:igameapp/src/data/remote/api/clients/dio_client.dart';
 import 'package:igameapp/src/data/repositories/app/app_repo.dart';
 import 'package:igameapp/src/data/repositories/game/game_repo.dart';
+import 'package:igameapp/src/domain/games_no_connection_usecase.dart';
+import 'package:igameapp/src/domain/remove_local_games_usecase.dart';
 import 'package:igameapp/src/presentation/screens/gamesscreens/gamedetailsscreen/cubit/game_details_cubit.dart';
 import 'package:igameapp/src/presentation/screens/gamesscreens/homescreen/cubit/home_cubit.dart';
 import 'package:igameapp/src/presentation/screens/getstartedscreens/splashscreen/cubit/splash_cubit.dart';
@@ -32,7 +34,8 @@ abstract class AppModule {
       GameRepo(dioClient, gameDao);
 
   @lazySingleton
-  HomeCubit homeCubit(GameRepo repository) => HomeCubit(repository);
+  HomeCubit homeCubit(GameRepo repository, GamesNoConnectionUseCase useCase) =>
+      HomeCubit(repository, useCase);
 
   @injectable
   GameDetailsCubit gameDetailsCubit(
@@ -41,5 +44,7 @@ abstract class AppModule {
           routeSettingService.currentRouteSettings?.arguments as GameModel);
 
   @injectable
-  SettingsCubit settingsCubit(AppRepo repository) => SettingsCubit(repository);
+  SettingsCubit settingsCubit(
+          AppRepo repository, RemoveLocalGamesUseCase useCase) =>
+      SettingsCubit(repository, useCase);
 }

@@ -11,6 +11,8 @@ import 'package:igameapp/src/di/getit/injection.dart';
 import 'package:igameapp/src/presentation/screens/settingscreen/cubit/setting_state.dart';
 import 'package:igameapp/src/presentation/screens/settingscreen/cubit/settings_cubit.dart';
 import 'package:igameapp/src/presentation/widgets/appbars/app_bar_default.dart';
+import 'package:igameapp/src/presentation/widgets/buttons/button_default.dart';
+import 'package:igameapp/src/presentation/widgets/common/extentions.dart';
 import 'package:igameapp/src/utils/extensions.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -90,7 +92,11 @@ class SettingsScreen extends StatelessWidget {
                           ],
                         );
                       })
-                    )
+                    ),
+                    SizedBox(height: 48.h,),
+                    ButtonDefault(title: context.l.remove_games,).onClickBounce((){
+                      cubit.removeGames();
+                    })
                   ],
                 )),
           ),

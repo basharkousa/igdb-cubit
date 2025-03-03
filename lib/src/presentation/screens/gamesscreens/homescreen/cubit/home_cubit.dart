@@ -1,3 +1,4 @@
+import 'package:igameapp/src/domain/games_no_connection_usecase.dart';
 import 'package:igameapp/src/presentation/widgets/common/paginationcubit/base_pagination_cubit.dart';
 import 'package:igameapp/src/data/models/gamesmodels/game_model.dart';
 import 'package:igameapp/src/data/repositories/game/game_repo.dart';
@@ -5,15 +6,17 @@ import 'package:igameapp/src/data/models/BaseResponse.dart';
 
 class HomeCubit extends BasePaginationCubit<GameModel> {
   final GameRepo repository;
+  final GamesNoConnectionUseCase gamesUseCase;
 
-  HomeCubit(this.repository) : super() {
+  HomeCubit(this.repository,this.gamesUseCase) : super() {
     // scrollController.addListener(_scrollListener);
     // getGames();
   }
 
   @override
   Future<BaseResponse<GameModel>> fetchInitialList() async {
-    return repository.getGames({"limit": limit, "offset": 0});
+    // return repository.getGames({"limit": limit, "offset": 0});
+    return await gamesUseCase({"limit": limit, "offset": 0});
   }
 
   @override

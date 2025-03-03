@@ -37,6 +37,6 @@ class GameRepo implements IGameRepo {
       games.map<GameEntity>((game) => GameEntity.from(game)).toList());
 
   @override
-  Future<void> removeGames() => _gameDao.removeGames();
+  Future<void> removeGames() => _gameDao.deleteAllGames();
 
 }

@@ -25,6 +25,8 @@ import 'package:igameapp/src/data/repositories/game/game_repo.dart' as _i358;
 import 'package:igameapp/src/di/getit/modules/app_modules.dart' as _i483;
 import 'package:igameapp/src/di/getit/modules/local_modules.dart' as _i818;
 import 'package:igameapp/src/di/getit/modules/remote_modules.dart' as _i146;
+import 'package:igameapp/src/domain/games_no_connection_usecase.dart' as _i54;
+import 'package:igameapp/src/domain/remove_local_games_usecase.dart' as _i1012;
 import 'package:igameapp/src/presentation/screens/gamesscreens/gamedetailsscreen/cubit/game_details_cubit.dart'
     as _i1048;
 import 'package:igameapp/src/presentation/screens/gamesscreens/homescreen/cubit/home_cubit.dart'
@@ -74,17 +76,28 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i11.DioClient>(),
           gh<_i864.GameDao>(),
         ));
-    gh.lazySingleton<_i957.HomeCubit>(
-        () => appModule.homeCubit(gh<_i358.GameRepo>()));
     gh.factory<_i1013.SplashCubit>(
         () => appModule.splashCubit(gh<_i3.AppRepo>()));
-    gh.factory<_i502.SettingsCubit>(
-        () => appModule.settingsCubit(gh<_i3.AppRepo>()));
     gh.lazySingleton<_i872.AppCubit>(
         () => appModule.appCubit(gh<_i3.AppRepo>()));
     gh.factory<_i1048.GameDetailsCubit>(() => appModule.gameDetailsCubit(
           gh<_i358.GameRepo>(),
           gh<_i991.RouteSettingsService>(),
+        ));
+    gh.factory<_i1012.RemoveLocalGamesUseCase>(
+        () => _i1012.RemoveLocalGamesUseCase(gh<_i358.GameRepo>()));
+    gh.factory<_i502.SettingsCubit>(() => appModule.settingsCubit(
+          gh<_i3.AppRepo>(),
+          gh<_i1012.RemoveLocalGamesUseCase>(),
+        ));
+    gh.factory<_i54.GamesNoConnectionUseCase>(
+        () => _i54.GamesNoConnectionUseCase(
+              gh<_i358.GameRepo>(),
+              gh<_i1012.RemoveLocalGamesUseCase>(),
+            ));
+    gh.lazySingleton<_i957.HomeCubit>(() => appModule.homeCubit(
+          gh<_i358.GameRepo>(),
+          gh<_i54.GamesNoConnectionUseCase>(),
         ));
     return this;
   }
