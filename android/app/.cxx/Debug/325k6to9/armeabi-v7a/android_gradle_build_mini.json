@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/Users/bashar/Downloads/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/bashar/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/bashar/Documents/myProjects/mytasksnewversion/IGameAppGitHub/CubitVersion/igdb-cubit/android/app/.cxx/Debug/325k6to9/armeabi-v7a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/bashar/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/bashar/Documents/myProjects/mytasksnewversion/IGameAppGitHub/CubitVersion/igdb-cubit/android/app/.cxx/Debug/325k6to9/armeabi-v7a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

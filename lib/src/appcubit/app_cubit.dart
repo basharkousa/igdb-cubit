@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:igameapp/src/data/repositories/app/app_repo.dart';
+import 'package:igameapp/src/core/data/repositories/app/app_repo.dart';
 import 'app_state.dart';
 
 class AppCubit extends Cubit<AppState> {
