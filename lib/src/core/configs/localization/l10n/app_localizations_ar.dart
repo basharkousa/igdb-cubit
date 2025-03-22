@@ -64,4 +64,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get remove_games => 'إزالة الألعاب';
+
+  @override
+  String get clean_cash => 'Clean Cash';
 }

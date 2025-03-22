@@ -210,6 +210,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remove games'**
   String get remove_games;
+
+  /// No description provided for @clean_cash.
+  ///
+  /// In en, this message translates to:
+  /// **'Clean Cash'**
+  String get clean_cash;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:igameapp/src/core/data/models/BaseResponse.dart';
 import 'api_state_paging.dart';
 import 'package:igameapp/src/core/presentation/widgets/common/paginationcubit/base_pagination_cubit.dart';
 import 'package:igameapp/src/core/presentation/widgets/common/error_widget.dart';
@@ -9,7 +8,7 @@ import 'package:shimmer/shimmer.dart';
 
 class PaginationBlocWidget<T, C extends BasePaginationCubit<T>>
     extends StatelessWidget {
-  final Widget Function(BaseResponse<T>?)? contentWidget;
+  final Widget Function(List<T>?)? contentWidget;
   final Widget? loadingWidget;
   final Widget? errorWidget;
   final Widget? loadingMoreWidget; // Add loadingMoreWidget
@@ -36,7 +35,7 @@ class PaginationBlocWidget<T, C extends BasePaginationCubit<T>>
   Widget build(BuildContext context) {
     return BlocProvider<C>.value(
       value: cubit,
-      child: BlocBuilder<C, ApiStatePaging<BaseResponse<T>>>(
+      child: BlocBuilder<C, ApiStatePaging<List<T>>>(
         builder: (context, state) {
           return state.when(
             loading: () => _buildLoading(context),
@@ -84,7 +83,7 @@ class PaginationBlocWidget<T, C extends BasePaginationCubit<T>>
         );
   }
 
-  Widget _buildContent({BaseResponse<T>? data, BuildContext? context}) {
+  Widget _buildContent({List<T>? data, BuildContext? context}) {
     return contentWidget != null
         ? contentWidget!(data)
         : const Center(
@@ -92,7 +91,7 @@ class PaginationBlocWidget<T, C extends BasePaginationCubit<T>>
           );
   }
 
-  Widget _buildLoadingMore(BaseResponse<T>? data, BuildContext context) {
+  Widget _buildLoadingMore(List<T>? data, BuildContext context) {
     return loadingMoreWidget ??
         const Center(child: CircularProgressIndicator());
   }

@@ -1,6 +1,7 @@
 
 sealed class ApiStatePaging<T> {
   final T? data;
+
   const ApiStatePaging(this.data);
   R when<R>({
     required R Function() loading,

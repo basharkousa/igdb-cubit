@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:igameapp/src/core/data/models/BaseResponse.dart';
 import 'api_state_paging.dart';
 import 'package:igameapp/src/core/data/remote/exceptions/dio_error_util.dart';
 import 'package:dio/dio.dart';
 
 abstract class BasePaginationCubit<T>
-    extends Cubit<ApiStatePaging<BaseResponse<T>>> {
+  extends Cubit<ApiStatePaging<List<T>>> {
   final ScrollController scrollController = ScrollController();
   final int limit = 8;
   int offset = 0;
@@ -26,9 +25,9 @@ abstract class BasePaginationCubit<T>
   Future<void> getInitialList() async {
     emit(const ApiLoading());
     try {
-      final response = await fetchInitialList();
-      offset = response.list?.length ?? 0;
-      emit(ApiCompleted(response));
+      final List<T> responseList = await fetchInitialList();
+      offset = responseList.length ?? 0;
+      emit(ApiCompleted(responseList));
     } on DioException catch (error) {
       emit(ApiError(DioErrorUtil.handleError(error) ?? "Error"));
     } catch (error) {
@@ -39,14 +38,14 @@ abstract class BasePaginationCubit<T>
   Future<void> loadMore() async {
     print("loadMore");
     final currentState = state;
-    if (currentState is ApiCompleted<BaseResponse<T>> ||
-        currentState is ApiLoadMoreError<BaseResponse<T>>) {
+    if (currentState is ApiCompleted<List<T>> ||
+        currentState is ApiLoadMoreError<List<T>>) {
       emit(ApiLoadingMore((currentState).data));
 
       try {
-        final response = await fetchMoreList(offset);
-        currentState.data?.list?.addAll(response.list ?? []);
-        offset += response.list?.length ?? 0;
+        final responseList = await fetchMoreList(offset);
+        currentState.data?.addAll(responseList );
+        offset += responseList.length ?? 0;
 
         emit(ApiCompleted(currentState.data));
       } on DioException catch (error) {
@@ -59,9 +58,9 @@ abstract class BasePaginationCubit<T>
     }
   }
 
-  Future<BaseResponse<T>> fetchInitialList();
+  Future<List<T>> fetchInitialList();
 
-  Future<BaseResponse<T>> fetchMoreList(int offset);
+  Future<List<T>> fetchMoreList(int offset);
 
   Future onRefresh() async {
     getInitialList();
@@ -73,4 +72,6 @@ abstract class BasePaginationCubit<T>
     scrollController.dispose();
     return super.close();
   }
+
+
 }

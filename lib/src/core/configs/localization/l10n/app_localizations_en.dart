@@ -64,4 +64,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get remove_games => 'Remove games';
+
+  @override
+  String get clean_cash => 'Clean Cash';
 }

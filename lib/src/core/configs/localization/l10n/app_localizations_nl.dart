@@ -64,4 +64,7 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get remove_games => 'Spellen verwijderen';
+
+  @override
+  String get clean_cash => 'Clean Cash';
 }

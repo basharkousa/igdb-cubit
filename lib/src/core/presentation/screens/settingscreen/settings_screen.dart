@@ -69,7 +69,7 @@ class SettingsScreen extends StatelessWidget {
                               width: 10.w,
                             ),
                             MaterialButton(
-                                color: state.locale.languageCode=="nl"? Colors.black:null,
+                                color: state.locale.languageCode =="nl"? Colors.black:null,
                                 onPressed: () {
                                   getIt<AppCubit>().changeLanguage('nl');
                                 },

@@ -18,5 +18,7 @@
     "edit": "Edit",
     "delete": "Delete",
     "settings": "Settings",
-    "remove_games": "Remove games"
-  }
+    "remove_games": "Remove games",
+    "clean_cash": "Clean Cash"
+
+}

@@ -38,6 +38,7 @@ extension OnPressed on Widget {
 
   Widget onClickBounce(Function onPressed) => SpringButton(
       SpringButtonType.OnlyScale,
+
       Stack(
         children: <Widget>[
           this,

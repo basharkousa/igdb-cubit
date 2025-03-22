@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:igameapp/src/core/data/models/gamesmodels/game_model.dart';
 import 'package:igameapp/src/core/presentation/widgets/common/extentions.dart';
 import 'package:igameapp/src/core/presentation/widgets/common/my_cached_network_widget.dart';
+import 'package:igameapp/src/features/game/domain/models/game.dart';
 
 class ItemGame extends StatelessWidget {
+  final Game game;
+  final Function(Game) onClick;
+  final Function(Game) onFavouriteCLick;
 
-  final GameModel? game;
-  final Function(GameModel) onClick;
-
-  const ItemGame({super.key, required this.game,required this.onClick});
+  const ItemGame(
+      {super.key,
+      required this.game,
+      required this.onClick,
+      required this.onFavouriteCLick});
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Container(
       clipBehavior: Clip.antiAlias,
       padding: EdgeInsetsDirectional.all(16.w),
@@ -39,16 +43,20 @@ class ItemGame extends StatelessWidget {
             child: Container(
                 height: 100.h,
                 width: 100.h,
-                child: MyCachedNetworkImage(imUrl: "https:${game?.cover?.url}")),
+                child: MyCachedNetworkImage(imUrl: game.coverBig)),
           ),
-          SizedBox(width: 10.w,),
+          SizedBox(
+            width: 10.w,
+          ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                SizedBox(height: 10.h,),
+                SizedBox(
+                  height: 10.h,
+                ),
                 Text(
-                  game?.name??"",
+                  game.name ?? "",
                   textAlign: TextAlign.start,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -58,23 +66,40 @@ class ItemGame extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(height: 10.h,),
+                SizedBox(
+                  height: 10.h,
+                ),
+                buildFavouriteState()
               ],
             ),
           ),
           // Expanded(child: Container()),
-          Icon(Icons.keyboard_arrow_right,size: 24.w,color: Color(0xffA6A6A6),)
+          Icon(
+            Icons.keyboard_arrow_right,
+            size: 24.w,
+            color: Color(0xffA6A6A6),
+          )
         ],
       ),
-    ).onClickBounce((){
-      onClick(game!);
-    });
+    );
+    //     .onClickBounce(() {
+    //   onClick(game);
+    // });
+  }
+
+  buildFavouriteState() {
+    return IconButton(
+        onPressed: () {
+          onFavouriteCLick(game);
+        },
+        icon: Icon(game.isFavourite ? Icons.favorite : Icons.favorite_border));
   }
 }
 
 class ItemGameShimmer extends StatelessWidget {
-
-  const ItemGameShimmer({super.key,});
+  const ItemGameShimmer({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +135,9 @@ class ItemGameShimmer extends StatelessWidget {
                     width: 100.h,
                     child: MyCachedNetworkImage(imUrl: "https:}")),
               ),
-              SizedBox(width: 10.w,),
+              SizedBox(
+                width: 10.w,
+              ),
               // Text(
               //   "projec",
               //   textAlign: TextAlign.start,
@@ -122,10 +149,14 @@ class ItemGameShimmer extends StatelessWidget {
               //
               //   ),
               // ),
-              SizedBox(height: 10.h,),
+              SizedBox(
+                height: 10.h,
+              ),
             ],
           ),
-          SizedBox(width: 10.h,),
+          SizedBox(
+            width: 10.h,
+          ),
           Text(
             "projec",
             textAlign: TextAlign.start,
@@ -134,14 +165,16 @@ class ItemGameShimmer extends StatelessWidget {
               color: Color(0xFF151515),
               fontSize: 16.sp,
               fontWeight: FontWeight.w600,
-
             ),
           ),
           Expanded(child: Container()),
-          Icon(Icons.keyboard_arrow_right,size: 24.w,color: Color(0xffA6A6A6),)
+          Icon(
+            Icons.keyboard_arrow_right,
+            size: 24.w,
+            color: Color(0xffA6A6A6),
+          )
         ],
       ),
     );
   }
 }
-

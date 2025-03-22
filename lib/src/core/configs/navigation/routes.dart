@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:igameapp/src/core/presentation/screens/splashscreen/splash_screen.dart';
+import 'package:igameapp/src/features/game/presentation/screens/gamedetailsscreen/cubit/game_details_cubit.dart';
+import 'package:igameapp/src/features/game/presentation/screens/gamedetailsscreen/game_details_screen.dart';
+import 'package:igameapp/src/features/game/presentation/screens/homescreen/cubit/home_cubit.dart';
+import 'package:igameapp/src/features/game/presentation/screens/homescreen/home_screen.dart';
+import 'package:igameapp/src/features/game/presentation/screens/savedgamesscreen/saved_games_screen.dart';
 import '../../../../src/core/di/getit/injection.dart';
-import '../../../../src/core/presentation/screens/gamesscreens/gamedetailsscreen/cubit/game_details_cubit.dart';
-import '../../../../src/core/presentation/screens/gamesscreens/gamedetailsscreen/game_details_screen.dart';
-import '../../../../src/core/presentation/screens/gamesscreens/homescreen/cubit/home_cubit.dart';
-import '../../../../src/core/presentation/screens/gamesscreens/homescreen/home_screen.dart';
-import '../../../../src/core/presentation/screens/gamesscreens/savedgamesscreen/saved_games_screen.dart';
 import '../../../../src/core/presentation/screens/settingscreen/cubit/settings_cubit.dart';
 import '../../../../src/core/presentation/screens/settingscreen/settings_screen.dart';
 import '../../../../src/core/utils/page_transition.dart';
-import '../../presentation/screens/getStartedScreens/splashScreen/splash_screen.dart';
 
 class Routes {
   Routes._();

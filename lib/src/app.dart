@@ -7,9 +7,9 @@ import 'package:igameapp/src/core/configs/navigation/route_observer.dart';
 import 'package:igameapp/src/appcubit/app_cubit.dart';
 import 'package:igameapp/src/appcubit/app_state.dart';
 import 'package:igameapp/src/core/di/getit/injection.dart';
+import 'package:igameapp/src/core/presentation/screens/splashscreen/splash_screen.dart';
 import 'core/configs/theme/app_theme.dart';
 import 'core/configs/navigation/routes.dart';
-import 'core/presentation/screens/getStartedScreens/splashScreen/splash_screen.dart';
 
 class App extends StatelessWidget{
 

@@ -1,5 +1,4 @@
 import 'package:igameapp/src/core/data/local/datasources/floor/app_database.dart';
-import 'package:igameapp/src/core/data/local/datasources/floor/dao/game_dao.dart';
 import 'package:igameapp/src/core/data/local/datasources/sharedpref/shared_preference_helper.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,8 +20,5 @@ abstract class LocalModule {
   @lazySingleton
   Future<AppDatabase> get database async =>
       await $FloorAppDatabase.databaseBuilder('app_database.db').build();
-
-  @lazySingleton
-  GameDao gameDao(AppDatabase database) => database.gameDao;
 
 }

@@ -1,4 +1,5 @@
-import 'package:igameapp/src/core/data/models/gamesmodels/game_model.dart';
+
+import 'package:igameapp/src/features/game/data/models/gamesmodels/game_model.dart';
 
 class FakeClass{
 

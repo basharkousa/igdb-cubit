@@ -17,5 +17,7 @@
   "edit": "Bewerken",
   "delete": "Verwijderen",
   "settings": "Instellingen",
-  "remove_games": "Spellen verwijderen"
+  "remove_games": "Spellen verwijderen",
+  "clean_cash": "Clean Cash"
+
 }
