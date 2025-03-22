@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:igameapp/src/core/configs/theme/app_theme.dart';
-import 'package:igameapp/src/appcubit/app_cubit.dart';
-import 'package:igameapp/src/core/data/repositories/app/app_repo.dart';
+import 'package:igameapp/src/app/app_cubit.dart';
+import 'package:igameapp/src/app/app_repo.dart';
 import 'package:igameapp/src/core/di/getit/injection.dart';
-import 'package:igameapp/src/core/presentation/screens/settingscreen/cubit/setting_state.dart';
+import 'setting_state.dart';
 import 'package:igameapp/src/features/game/domain/remove_local_games_usecase.dart';
 
 class SettingsCubit extends Cubit<SettingState> {

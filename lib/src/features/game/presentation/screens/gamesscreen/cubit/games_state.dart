@@ -1,5 +1,5 @@
 /*
-part of 'home_cubit.dart';
+part of 'games_cubit.dart';
 
 @immutable
 abstract class HomeState {}

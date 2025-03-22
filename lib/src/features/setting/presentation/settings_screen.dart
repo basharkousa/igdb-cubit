@@ -1,15 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:igameapp/src/app/app_state.dart';
 import 'package:igameapp/src/core/configs/theme/app_theme.dart';
 import 'package:igameapp/src/core/configs/theme/colors.dart';
 import 'package:igameapp/src/core/configs/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:igameapp/src/appcubit/app_cubit.dart';
-import 'package:igameapp/src/appcubit/app_state.dart';
+import 'package:igameapp/src/app/app_cubit.dart';
 import 'package:igameapp/src/core/di/getit/injection.dart';
-import 'package:igameapp/src/core/presentation/screens/settingscreen/cubit/setting_state.dart';
-import 'package:igameapp/src/core/presentation/screens/settingscreen/cubit/settings_cubit.dart';
+import 'package:igameapp/src/features/setting/presentation/cubit/setting_state.dart';
+import 'package:igameapp/src/features/setting/presentation/cubit/settings_cubit.dart';
 import 'package:igameapp/src/core/presentation/widgets/appbars/app_bar_default.dart';
 import 'package:igameapp/src/core/presentation/widgets/buttons/button_default.dart';
 import 'package:igameapp/src/core/presentation/widgets/common/extentions.dart';

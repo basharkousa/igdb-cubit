@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:igameapp/src/core/presentation/screens/splashscreen/splash_screen.dart';
+import 'package:igameapp/src/features/game/presentation/screens/gamesscreen/cubit/games_cubit.dart';
+import 'package:igameapp/src/features/game/presentation/screens/gamesscreen/games_screen.dart';
+import 'package:igameapp/src/features/splash/presentation/splash_screen.dart';
 import 'package:igameapp/src/features/game/presentation/screens/gamedetailsscreen/cubit/game_details_cubit.dart';
 import 'package:igameapp/src/features/game/presentation/screens/gamedetailsscreen/game_details_screen.dart';
-import 'package:igameapp/src/features/game/presentation/screens/homescreen/cubit/home_cubit.dart';
-import 'package:igameapp/src/features/game/presentation/screens/homescreen/home_screen.dart';
 import 'package:igameapp/src/features/game/presentation/screens/savedgamesscreen/saved_games_screen.dart';
 import '../../../../src/core/di/getit/injection.dart';
-import '../../../../src/core/presentation/screens/settingscreen/cubit/settings_cubit.dart';
-import '../../../../src/core/presentation/screens/settingscreen/settings_screen.dart';
+import '../../../features/setting/presentation/cubit/settings_cubit.dart';
+import '../../../features/setting/presentation/settings_screen.dart';
 import '../../../../src/core/utils/page_transition.dart';
 
 class Routes {
@@ -26,9 +26,9 @@ class Routes {
           child: SplashScreenPage(),
           type: PageTransitionType.fade,
         );
-      case HomeScreen.route:
+      case GamesScreen.route:
         return PageTransition(
-            child: HomeScreen(homeCubit: getIt<HomeCubit>(),),
+            child: GamesScreen(gamesCubit: getIt<GamesCubit>(),),
             type: PageTransitionType.fade,
             duration: Duration(seconds: 1));
 
@@ -53,7 +53,7 @@ class Routes {
             settings: settings,
             barrierDismissible: true,
             builder: (_){
-          return SavedGamesScreen(homeCubit: getIt<HomeCubit>());
+          return SavedGamesScreen(gamesCubit: getIt<GamesCubit>());
         });
 
       default:

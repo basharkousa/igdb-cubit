@@ -5,20 +5,20 @@ import 'package:igameapp/src/core/configs/navigation/extension.dart';
 import 'package:igameapp/src/core/presentation/widgets/appbars/app_bar_default.dart';
 import 'package:igameapp/src/core/presentation/widgets/buttons/button_default.dart';
 import 'package:igameapp/src/core/presentation/widgets/common/extentions.dart';
-import 'package:igameapp/src/core/presentation/widgets/items/item_game.dart';
+import 'package:igameapp/src/features/game/presentation/screens/gamesscreen/cubit/games_cubit.dart';
+import 'package:igameapp/src/features/game/presentation/widgets/items/item_game.dart';
 import 'package:igameapp/src/core/utils/extensions.dart';
 import 'package:igameapp/src/features/game/domain/models/game.dart';
 import 'package:igameapp/src/features/game/presentation/screens/gamedetailsscreen/game_details_screen.dart';
-import 'package:igameapp/src/features/game/presentation/screens/homescreen/cubit/home_cubit.dart';
 import 'package:shimmer/shimmer.dart';
 
 class SavedGamesScreen extends StatelessWidget{
   static const String route = "/SavedGamesScreen";
 
-  final HomeCubit homeCubit;
+  final GamesCubit gamesCubit;
 
 
-  SavedGamesScreen({super.key,required this.homeCubit});
+  const SavedGamesScreen({super.key,required this.gamesCubit});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class SavedGamesScreen extends StatelessWidget{
               margin: EdgeInsetsDirectional.only(
                   start: Dimens.mainMargin, end: Dimens.mainMargin),
               child: RefreshIndicator(
-                onRefresh: homeCubit.onRefresh,
+                onRefresh: gamesCubit.onRefresh,
                 color: context.colorScheme.secondary,
                 child: SingleChildScrollView(
                     physics: AlwaysScrollableScrollPhysics(),
@@ -118,7 +118,7 @@ class SavedGamesScreen extends StatelessWidget{
     return ButtonDefault(
       title: context.l.clean_cash,
     ).onClickBounce((){
-      homeCubit.clearGamesHistory();
+      gamesCubit.clearGamesHistory();
     });
   }
 

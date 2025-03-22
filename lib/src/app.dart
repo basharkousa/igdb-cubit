@@ -4,12 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:igameapp/src/core/configs/localization/l10n/app_localizations.dart';
 import 'package:igameapp/src/core/configs/navigation/route_observer.dart';
-import 'package:igameapp/src/appcubit/app_cubit.dart';
-import 'package:igameapp/src/appcubit/app_state.dart';
 import 'package:igameapp/src/core/di/getit/injection.dart';
-import 'package:igameapp/src/core/presentation/screens/splashscreen/splash_screen.dart';
+import 'package:igameapp/src/features/splash/presentation/splash_screen.dart';
 import 'core/configs/theme/app_theme.dart';
 import 'core/configs/navigation/routes.dart';
+import 'app/app_cubit.dart';
+import 'app/app_state.dart';
 
 class App extends StatelessWidget{
 

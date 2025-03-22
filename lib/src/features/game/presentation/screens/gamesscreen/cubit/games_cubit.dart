@@ -1,15 +1,14 @@
 import 'package:igameapp/src/core/presentation/widgets/common/paginationcubit/api_state_paging.dart';
 import 'package:igameapp/src/core/presentation/widgets/common/paginationcubit/base_pagination_cubit.dart';
-import 'package:igameapp/src/features/game/data/game_repo.dart';
 import 'package:igameapp/src/features/game/domain/games_no_connection_usecase.dart';
 import 'package:igameapp/src/features/game/domain/get_games_usecase.dart';
 import 'package:igameapp/src/features/game/domain/models/game.dart';
 
-class HomeCubit extends BasePaginationCubit<Game> {
+class GamesCubit extends BasePaginationCubit<Game> {
   final GamesNoConnectionUseCase gamesNoConnectionUseCase;
   final GetGamesUseCase getGamesUseCase;
 
-  HomeCubit(this.gamesNoConnectionUseCase,this.getGamesUseCase) : super() {
+  GamesCubit(this.gamesNoConnectionUseCase,this.getGamesUseCase) : super() {
     // scrollController.addListener(_scrollListener);
     // getGames();
   }

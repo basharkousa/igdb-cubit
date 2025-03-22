@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:igameapp/src/core/data/repositories/app/app_repo.dart';
+import 'package:igameapp/src/app/app_repo.dart';
 
 part 'splash_state.dart';
 

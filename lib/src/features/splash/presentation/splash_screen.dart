@@ -5,12 +5,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:igameapp/src/core/configs/navigation/extension.dart';
 import 'package:igameapp/src/core/di/getit/injection.dart';
-import 'package:igameapp/src/core/presentation/screens/splashscreen/cubit/splash_cubit.dart';
+import 'package:igameapp/src/features/game/presentation/screens/gamesscreen/games_screen.dart';
+import 'package:igameapp/src/features/splash/presentation/cubit/splash_cubit.dart';
 import 'package:igameapp/src/core/presentation/widgets/common/state_ful_wrapper.dart';
 import 'package:igameapp/src/core/utils/extensions.dart';
-import 'package:igameapp/src/features/game/presentation/screens/homescreen/home_screen.dart';
-import '../../widgets/sections/app_logo_widget.dart';
-import '../../widgets/sections/background_theme_widget.dart';
+import '../../../core/presentation/widgets/sections/app_logo_widget.dart';
+import '../../../core/presentation/widgets/sections/background_theme_widget.dart';
 
 class SplashScreenPage extends StatelessWidget {
   static const String route = "/";
@@ -101,7 +101,7 @@ class SplashScreenPage extends StatelessWidget {
 
   Future<void> goToHomeScreen(BuildContext context) async {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.navigateAndRemoveUntil(HomeScreen.route,
+      context.navigateAndRemoveUntil(GamesScreen.route,
           predicate: (route) => false);
     });
     // context.goNamed(HomeScreen.route,);

@@ -2,25 +2,22 @@ import 'package:igameapp/src/core/configs/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:igameapp/src/core/configs/navigation/extension.dart';
-import 'package:igameapp/src/core/presentation/screens/settingscreen/settings_screen.dart';
+import 'package:igameapp/src/features/game/presentation/screens/gamesscreen/cubit/games_cubit.dart';
+import 'package:igameapp/src/features/setting/presentation/settings_screen.dart';
 import 'package:igameapp/src/core/presentation/widgets/appbars/app_bar_home.dart';
 import 'package:igameapp/src/core/presentation/widgets/common/paginationcubit/pagination_bloc_widget.dart';
-import 'package:igameapp/src/core/presentation/widgets/items/item_game.dart';
+import 'package:igameapp/src/features/game/presentation/widgets/items/item_game.dart';
 import 'package:igameapp/src/core/utils/extensions.dart';
-import 'package:igameapp/src/features/game/data/models/gamesmodels/game_model.dart';
-import 'package:igameapp/src/features/game/domain/models/cover.dart';
 import 'package:igameapp/src/features/game/domain/models/game.dart';
-import 'package:igameapp/src/features/game/presentation/screens/gamedetailsscreen/game_details_screen.dart';
-import 'package:igameapp/src/features/game/presentation/screens/homescreen/cubit/home_cubit.dart';
 import 'package:igameapp/src/features/game/presentation/screens/savedgamesscreen/saved_games_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
-class HomeScreen extends StatelessWidget {
+class GamesScreen extends StatelessWidget {
   static const String route = "/HomeScreen";
 
-  const HomeScreen({super.key, required this.homeCubit});
+  const GamesScreen({super.key, required this.gamesCubit});
 
-  final HomeCubit homeCubit;
+  final GamesCubit gamesCubit;
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +39,11 @@ class HomeScreen extends StatelessWidget {
           margin: EdgeInsetsDirectional.only(
               start: Dimens.mainMargin, end: Dimens.mainMargin),
           child: RefreshIndicator(
-            onRefresh: homeCubit.onRefresh,
+            onRefresh: gamesCubit.onRefresh,
             color: context.colorScheme.secondary,
             child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
-                controller: homeCubit.scrollController,
+                controller: gamesCubit.scrollController,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
@@ -67,9 +64,9 @@ class HomeScreen extends StatelessWidget {
                     ),*/
                     // buildGameListWidgetState(context),
                     //pagination
-                    PaginationBlocWidget<Game, HomeCubit>(
+                    PaginationBlocWidget<Game, GamesCubit>(
                       // Specify T and C
-                      cubit: homeCubit,
+                      cubit: gamesCubit,
                       // Pass your HomeCubit instance
                       contentWidget: (data) =>
                           buildGamesWidget(context, data ?? []),
@@ -77,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                       loadingWidget: buildLoadingGamesWidget(context),
                       loadingMoreWidget: buildLoadMoreLoading(context),
                       onRetryLoadMoreClicked: () {
-                        homeCubit.loadMore();
+                        gamesCubit.loadMore();
                       },
                     ),
                     SizedBox(
@@ -110,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                       ratings: 0,
                       cover: null),
               onFavouriteCLick: (game) {
-                homeCubit.toggleFavouriteState(game);
+                gamesCubit.toggleFavouriteState(game);
               },
               onClick: (game) {
                 goToGameDetailsScreen(game, context);

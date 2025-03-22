@@ -1,5 +1,5 @@
 import 'dart:ui';
-import '../../local/datasources/sharedpref/shared_preference_helper.dart';
+import '../core/data/local/datasources/sharedpref/shared_preference_helper.dart';
 
 class AppRepo{
 
