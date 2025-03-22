@@ -7,10 +7,10 @@ import 'package:igameapp/src/core/configs/navigation/extension.dart';
 import 'package:igameapp/src/core/di/getit/injection.dart';
 import 'package:igameapp/src/features/game/presentation/screens/gamesscreen/games_screen.dart';
 import 'package:igameapp/src/features/splash/presentation/cubit/splash_cubit.dart';
-import 'package:igameapp/src/core/presentation/widgets/common/state_ful_wrapper.dart';
+import 'package:igameapp/src/core/widgets/common/state_ful_wrapper.dart';
 import 'package:igameapp/src/core/utils/extensions.dart';
-import '../../../core/presentation/widgets/sections/app_logo_widget.dart';
-import '../../../core/presentation/widgets/sections/background_theme_widget.dart';
+import '../../../core/widgets/sections/app_logo_widget.dart';
+import '../../../core/widgets/sections/background_theme_widget.dart';
 
 class SplashScreenPage extends StatelessWidget {
   static const String route = "/";

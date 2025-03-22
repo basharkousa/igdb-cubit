@@ -10,7 +10,7 @@ import 'dart:async';
 part 'app_database.g.dart'; // the generated code will be there
 
 @TypeConverters([StringListConverter])
-@Database(version: 2, entities: [GameEntity,GameFavoriteEntity])
+@Database(version: 1, entities: [GameEntity,GameFavoriteEntity])
 abstract class AppDatabase extends FloorDatabase {
   GameDao get gameDao;
   GameFavoriteDao get gameFavoriteDao;

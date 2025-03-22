@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:igameapp/src/core/presentation/widgets/buttons/button_rounded.dart';
-import 'package:igameapp/src/core/presentation/widgets/common/extentions.dart';
+import 'package:igameapp/src/core/widgets/buttons/button_rounded.dart';
+import 'package:igameapp/src/core/widgets/common/extentions.dart';
 
 class AppBarDefault extends StatelessWidget implements PreferredSizeWidget{
   final bool transparent;

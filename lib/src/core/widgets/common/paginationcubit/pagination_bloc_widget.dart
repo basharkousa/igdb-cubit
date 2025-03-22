@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'api_state_paging.dart';
-import 'package:igameapp/src/core/presentation/widgets/common/paginationcubit/base_pagination_cubit.dart';
-import 'package:igameapp/src/core/presentation/widgets/common/error_widget.dart';
-import 'package:igameapp/src/core/presentation/widgets/common/loading_widget.dart';
+import 'package:igameapp/src/core/widgets/common/paginationcubit/base_pagination_cubit.dart';
+import 'package:igameapp/src/core/widgets/common/error_widget.dart';
+import 'package:igameapp/src/core/widgets/common/loading_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PaginationBlocWidget<T, C extends BasePaginationCubit<T>>

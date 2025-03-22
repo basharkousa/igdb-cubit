@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:igameapp/src/core/data/models/api_state.dart';
-import 'package:igameapp/src/core/presentation/widgets/common/error_widget.dart';
+import 'package:igameapp/src/core/widgets/common/error_widget.dart';
 import 'package:shimmer/shimmer.dart';
 import 'loading_widget.dart';
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../../generated/assets.gen.dart';
-import '../../../configs/dimens.dart';
+import '../../configs/dimens.dart';
 
 class CustomExpansionTile extends StatelessWidget {
   final String? title;

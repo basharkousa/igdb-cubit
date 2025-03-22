@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:igameapp/src/core/presentation/widgets/common/extentions.dart';
-import 'package:igameapp/src/core/presentation/widgets/common/my_cached_network_widget.dart';
+import 'package:igameapp/src/core/widgets/common/my_cached_network_widget.dart';
 import 'package:igameapp/src/features/game/domain/models/game.dart';
 
 class ItemGame extends StatelessWidget {

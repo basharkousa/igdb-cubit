@@ -2,9 +2,9 @@ import 'package:igameapp/src/core/configs/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:igameapp/src/core/configs/navigation/extension.dart';
-import 'package:igameapp/src/core/presentation/widgets/appbars/app_bar_default.dart';
-import 'package:igameapp/src/core/presentation/widgets/buttons/button_default.dart';
-import 'package:igameapp/src/core/presentation/widgets/common/extentions.dart';
+import 'package:igameapp/src/core/widgets/appbars/app_bar_default.dart';
+import 'package:igameapp/src/core/widgets/buttons/button_default.dart';
+import 'package:igameapp/src/core/widgets/common/extentions.dart';
 import 'package:igameapp/src/features/game/presentation/screens/gamesscreen/cubit/games_cubit.dart';
 import 'package:igameapp/src/features/game/presentation/widgets/items/item_game.dart';
 import 'package:igameapp/src/core/utils/extensions.dart';
@@ -110,7 +110,7 @@ class SavedGamesScreen extends StatelessWidget{
             height: 10.h,
           );
         },
-        itemCount: list.length ?? 0);
+        itemCount: list.length);
   }
 
 

@@ -1,5 +1,5 @@
-import 'package:igameapp/src/core/presentation/widgets/common/paginationcubit/api_state_paging.dart';
-import 'package:igameapp/src/core/presentation/widgets/common/paginationcubit/base_pagination_cubit.dart';
+import 'package:igameapp/src/core/widgets/common/paginationcubit/api_state_paging.dart';
+import 'package:igameapp/src/core/widgets/common/paginationcubit/base_pagination_cubit.dart';
 import 'package:igameapp/src/features/game/domain/games_no_connection_usecase.dart';
 import 'package:igameapp/src/features/game/domain/get_games_usecase.dart';
 import 'package:igameapp/src/features/game/domain/models/game.dart';

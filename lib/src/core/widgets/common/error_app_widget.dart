@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:igameapp/src/core/utils/extensions.dart';
 import '../../../../../generated/assets.gen.dart';
-import '../../../configs/dimens.dart';
+import '../../configs/dimens.dart';
 
 class ErrorAppWidget extends StatelessWidget {
   final String? errorMessage;

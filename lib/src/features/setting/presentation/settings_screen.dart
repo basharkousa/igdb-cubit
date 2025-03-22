@@ -9,9 +9,9 @@ import 'package:igameapp/src/app/app_cubit.dart';
 import 'package:igameapp/src/core/di/getit/injection.dart';
 import 'package:igameapp/src/features/setting/presentation/cubit/setting_state.dart';
 import 'package:igameapp/src/features/setting/presentation/cubit/settings_cubit.dart';
-import 'package:igameapp/src/core/presentation/widgets/appbars/app_bar_default.dart';
-import 'package:igameapp/src/core/presentation/widgets/buttons/button_default.dart';
-import 'package:igameapp/src/core/presentation/widgets/common/extentions.dart';
+import 'package:igameapp/src/core/widgets/appbars/app_bar_default.dart';
+import 'package:igameapp/src/core/widgets/buttons/button_default.dart';
+import 'package:igameapp/src/core/widgets/common/extentions.dart';
 import 'package:igameapp/src/core/utils/extensions.dart';
 
 class SettingsScreen extends StatelessWidget {

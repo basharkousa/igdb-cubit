@@ -26,7 +26,7 @@ abstract class BasePaginationCubit<T>
     emit(const ApiLoading());
     try {
       final List<T> responseList = await fetchInitialList();
-      offset = responseList.length ?? 0;
+      offset = responseList.length;
       emit(ApiCompleted(responseList));
     } on DioException catch (error) {
       emit(ApiError(DioErrorUtil.handleError(error) ?? "Error"));
@@ -45,7 +45,7 @@ abstract class BasePaginationCubit<T>
       try {
         final responseList = await fetchMoreList(offset);
         currentState.data?.addAll(responseList );
-        offset += responseList.length ?? 0;
+        offset += responseList.length;
 
         emit(ApiCompleted(currentState.data));
       } on DioException catch (error) {

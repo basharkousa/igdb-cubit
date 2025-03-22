@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:igameapp/src/core/configs/navigation/extension.dart';
 import 'package:igameapp/src/features/game/presentation/screens/gamesscreen/cubit/games_cubit.dart';
 import 'package:igameapp/src/features/setting/presentation/settings_screen.dart';
-import 'package:igameapp/src/core/presentation/widgets/appbars/app_bar_home.dart';
-import 'package:igameapp/src/core/presentation/widgets/common/paginationcubit/pagination_bloc_widget.dart';
+import 'package:igameapp/src/core/widgets/appbars/app_bar_home.dart';
+import 'package:igameapp/src/core/widgets/common/paginationcubit/pagination_bloc_widget.dart';
 import 'package:igameapp/src/features/game/presentation/widgets/items/item_game.dart';
 import 'package:igameapp/src/core/utils/extensions.dart';
 import 'package:igameapp/src/features/game/domain/models/game.dart';
@@ -26,7 +26,7 @@ class GamesScreen extends StatelessWidget {
       bottom: false,
       child: Scaffold(
         appBar: AppBarHome(
-          title: context.l.popular_games_right_now ?? "",
+          title: context.l.popular_games_right_now,
           onSettingClick: () {
             print("Bdadba");
             context.navigateTo(SettingsScreen.route);
