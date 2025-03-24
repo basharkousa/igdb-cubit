@@ -11,10 +11,10 @@ abstract class GameFavoriteDao {
   Stream<List<GameFavoriteEntity>> findAllFavoriteAsStream();
 
   @Query('SELECT * FROM GameFavoriteEntity WHERE id = :id')
-  Future<GameFavoriteEntity?> findTaskById(int id);
+  Future<GameFavoriteEntity?> findGameById(int id);
 
   @Insert(onConflict: OnConflictStrategy.replace)
-  Future<void> insertFavoriteGame(GameFavoriteEntity person);
+  Future<void> insertFavoriteGame(GameFavoriteEntity game);
 
   @Insert(onConflict: OnConflictStrategy.replace)
   Future<void> insertFavoriteGames(List<GameFavoriteEntity> games);

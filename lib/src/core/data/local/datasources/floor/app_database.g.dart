@@ -98,7 +98,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `GameEntity` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `rating` REAL NOT NULL, `imgUrl` TEXT NOT NULL, `isFavourite` INTEGER NOT NULL, `summery` TEXT NOT NULL, `screenshots` TEXT NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `GameEntity` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `rating` REAL NOT NULL, `imgUrl` TEXT NOT NULL, `summery` TEXT NOT NULL, `screenshots` TEXT NOT NULL, PRIMARY KEY (`id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `GameFavoriteEntity` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `rating` REAL NOT NULL, `imgUrl` TEXT NOT NULL, `isFavourite` INTEGER NOT NULL, `summery` TEXT NOT NULL, `screenshots` TEXT NOT NULL, PRIMARY KEY (`id`))');
 
@@ -133,7 +133,6 @@ class _$GameDao extends GameDao {
                   'name': item.name,
                   'rating': item.rating,
                   'imgUrl': item.imgUrl,
-                  'isFavourite': item.isFavourite ? 1 : 0,
                   'summery': item.summery,
                   'screenshots': _stringListConverter.encode(item.screenshots)
                 });
@@ -154,7 +153,6 @@ class _$GameDao extends GameDao {
             name: row['name'] as String,
             imgUrl: row['imgUrl'] as String,
             rating: row['rating'] as double,
-            isFavourite: (row['isFavourite'] as int) != 0,
             summery: row['summery'] as String,
             screenshots:
                 _stringListConverter.decode(row['screenshots'] as String)));
@@ -258,7 +256,7 @@ class _$GameFavoriteDao extends GameFavoriteDao {
   }
 
   @override
-  Future<GameFavoriteEntity?> findTaskById(int id) async {
+  Future<GameFavoriteEntity?> findGameById(int id) async {
     return _queryAdapter.query('SELECT * FROM GameFavoriteEntity WHERE id = ?1',
         mapper: (Map<String, Object?> row) => GameFavoriteEntity(
             id: row['id'] as int,
@@ -278,9 +276,9 @@ class _$GameFavoriteDao extends GameFavoriteDao {
   }
 
   @override
-  Future<void> insertFavoriteGame(GameFavoriteEntity person) async {
+  Future<void> insertFavoriteGame(GameFavoriteEntity game) async {
     await _gameFavoriteEntityInsertionAdapter.insert(
-        person, OnConflictStrategy.replace);
+        game, OnConflictStrategy.replace);
   }
 
   @override

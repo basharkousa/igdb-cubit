@@ -29,6 +29,8 @@ import 'package:igameapp/src/core/di/getit/modules/remote_modules.dart'
 import 'package:igameapp/src/features/game/data/game_repo.dart' as _i230;
 import 'package:igameapp/src/features/game/data/local/floor/dao/game_dao.dart'
     as _i209;
+import 'package:igameapp/src/features/game/data/local/floor/dao/game_favorite_dao.dart'
+    as _i821;
 import 'package:igameapp/src/features/game/di/game_module.dart' as _i368;
 import 'package:igameapp/src/features/game/domain/games_no_connection_usecase.dart'
     as _i11;
@@ -36,6 +38,8 @@ import 'package:igameapp/src/features/game/domain/get_games_usecase.dart'
     as _i429;
 import 'package:igameapp/src/features/game/domain/remove_local_games_usecase.dart'
     as _i169;
+import 'package:igameapp/src/features/game/domain/toggle_favourite_usecase.dart'
+    as _i204;
 import 'package:igameapp/src/features/game/presentation/screens/gamedetailsscreen/cubit/game_details_cubit.dart'
     as _i50;
 import 'package:igameapp/src/features/game/presentation/screens/gamesscreen/cubit/games_cubit.dart'
@@ -78,16 +82,19 @@ extension GetItInjectableX on _i174.GetIt {
         () => remoteModule.dioClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i209.GameDao>(
         () => gameModule.gameDao(gh<_i400.AppDatabase>()));
+    gh.lazySingleton<_i821.GameFavoriteDao>(
+        () => gameModule.gameFavoriteDao(gh<_i400.AppDatabase>()));
     gh.lazySingleton<_i909.SharedPreferenceHelper>(() =>
         localModule.sharedPreferenceHelper(gh<_i460.SharedPreferences>()));
     gh.lazySingleton<_i309.AppRepo>(
         () => appModule.appRepository(gh<_i909.SharedPreferenceHelper>()));
-    gh.lazySingleton<_i948.AppCubit>(
-        () => appModule.appCubit(gh<_i309.AppRepo>()));
     gh.lazySingleton<_i230.GameRepo>(() => gameModule.gameRepo(
           gh<_i765.DioClient>(),
           gh<_i209.GameDao>(),
+          gh<_i821.GameFavoriteDao>(),
         ));
+    gh.lazySingleton<_i948.AppCubit>(
+        () => appModule.appCubit(gh<_i309.AppRepo>()));
     gh.factory<_i50.GameDetailsCubit>(() => gameModule.gameDetailsCubit(
           gh<_i230.GameRepo>(),
           gh<_i764.RouteSettingsService>(),
@@ -98,6 +105,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i169.RemoveLocalGamesUseCase(gh<_i230.GameRepo>()));
     gh.factory<_i429.GetGamesUseCase>(
         () => _i429.GetGamesUseCase(gh<_i230.GameRepo>()));
+    gh.factory<_i204.ToggleFavouriteUseCase>(
+        () => _i204.ToggleFavouriteUseCase(gh<_i230.GameRepo>()));
     gh.factory<_i551.SettingsCubit>(() => appModule.settingsCubit(
           gh<_i309.AppRepo>(),
           gh<_i169.RemoveLocalGamesUseCase>(),
@@ -110,6 +119,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i219.GamesCubit>(() => gameModule.gamesCubit(
           gh<_i11.GamesNoConnectionUseCase>(),
           gh<_i429.GetGamesUseCase>(),
+          gh<_i204.ToggleFavouriteUseCase>(),
         ));
     return this;
   }

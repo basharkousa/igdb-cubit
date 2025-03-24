@@ -6,7 +6,7 @@ import 'package:igameapp/src/features/game/domain/remove_local_games_usecase.dar
 import 'package:injectable/injectable.dart';
 
 @injectable
-class GamesNoConnectionUseCase{
+class GamesNoConnectionUseCase {
   final GameRepo _gameRep;
   final RemoveLocalGamesUseCase _removeLocalGamesUseCase;
 
@@ -19,12 +19,17 @@ class GamesNoConnectionUseCase{
       _removeLocalGamesUseCase();
       _gameRep.addGames(games.list ?? []);
 
-      return games.list?.map((element) => element.toGame()).toList() ?? [];
-
+      return Future.wait(games.list
+              ?.map((element) async => element
+                  .toGame(await _gameRep.isGameFavorite(element.id ?? 0)))
+              .toList() ??
+          []);
     } catch (e, t) {
-
       var localGames = await _gameRep.getLocalGames();
-      return localGames.map((element) => element.toGame()).toList();
+      return Future.wait(localGames
+          .map((element) async =>
+              element.toGame(await _gameRep.isGameFavorite(element.id ?? 0)))
+          .toList());
     }
   }
 }

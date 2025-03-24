@@ -7,6 +7,8 @@ abstract class IGameRepo{
   Future<BaseResponse<GameModel>> getGames(Map<String,dynamic> params);
   Future<List<GameEntity>> getLocalGames();
   Future<void> addGame(Game game);
+  Future<void> toggleFavouriteGame(Game game);
   Future<void> addGames(List<GameModel> games);
   Future<void> removeGames();
+  Future<bool> isGameFavorite(int gameId);
 }

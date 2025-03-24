@@ -305,13 +305,13 @@ class GameModel {
   }
 
 
-  Game toGame() {
+  Game toGame(bool isFavourite) {
     return Game(
         id: id,
         name: name,
         cover: Cover(url: "https://images.igdb.com/igdb/image/upload/t_cover_big/${cover?.imageId}.jpg", imageId: cover?.imageId),
         ratings: rating,
-        isFavourite: false,
+        isFavourite: isFavourite,
         screenshots: screenshots?.map((item) => ScreenShot(gameId: 0, link: item.url))
             .toList(),
         summary: summary);

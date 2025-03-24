@@ -13,7 +13,6 @@ class GameEntity {
   final String name;
   final double rating;
   final String imgUrl;
-  final bool isFavourite;
   final String summery;
 
   @TypeConverters([StringListConverter])
@@ -24,7 +23,6 @@ class GameEntity {
       this.name = "Name",
       this.imgUrl = "",
       this.rating = 0.0,
-      this.isFavourite = false,
       this.summery = "",
       this.screenshots = const []});
 
@@ -34,7 +32,6 @@ class GameEntity {
       name: gameModel.name ?? "name",
       imgUrl: gameModel.coverBig ?? "",
       rating: gameModel.ratings ?? 0.0,
-      isFavourite: gameModel.isFavourite,
     );
   }
 
@@ -44,12 +41,11 @@ class GameEntity {
       name: gameModel.name ?? "name",
       imgUrl:"https://images.igdb.com/igdb/image/upload/t_cover_big/${gameModel.cover?.imageId}.jpg",
       rating: gameModel.rating ?? 0.0,
-      isFavourite: false,
     );
   }
 
 
-  Game toGame() {
+  Game toGame(bool isFavourite) {
     return Game(
         id: id,
         name: name,

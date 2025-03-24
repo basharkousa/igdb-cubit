@@ -3,12 +3,14 @@ import 'package:igameapp/src/core/widgets/common/paginationcubit/base_pagination
 import 'package:igameapp/src/features/game/domain/games_no_connection_usecase.dart';
 import 'package:igameapp/src/features/game/domain/get_games_usecase.dart';
 import 'package:igameapp/src/features/game/domain/models/game.dart';
+import 'package:igameapp/src/features/game/domain/toggle_favourite_usecase.dart';
 
 class GamesCubit extends BasePaginationCubit<Game> {
   final GamesNoConnectionUseCase gamesNoConnectionUseCase;
   final GetGamesUseCase getGamesUseCase;
+  final ToggleFavouriteUseCase toggleFavouriteUseCase;
 
-  GamesCubit(this.gamesNoConnectionUseCase,this.getGamesUseCase) : super() {
+  GamesCubit(this.gamesNoConnectionUseCase,this.getGamesUseCase,this.toggleFavouriteUseCase) : super() {
     // scrollController.addListener(_scrollListener);
     // getGames();
   }
@@ -125,6 +127,7 @@ class GamesCubit extends BasePaginationCubit<Game> {
       return item;
     }).toList();
     emit(ApiCompleted(updatedGames));
+    toggleFavouriteUseCase(game);
 
     // emit(ApiCompleted(state.data));
     // var newState = !game.isFavourite;
