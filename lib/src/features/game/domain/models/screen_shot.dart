@@ -1,19 +1,19 @@
 class ScreenShot{
-  int? _gameId;
-  String? _link;
+  final String? _imageId;
+  final String? _link;
 
   ScreenShot({
-    required int? gameId,
+    required String? imageId,
     required String? link,
-  })  : _gameId = gameId,
+  })  : _imageId = imageId,
         _link = link;
 
   ScreenShot copyWith({
-    int? gameId,
+    String? gameId,
     String? link,
   }) {
     return ScreenShot(
-      gameId: gameId ?? _gameId,
+      imageId: gameId ?? _imageId,
       link: link ?? _link,
     );
   }
@@ -23,14 +23,14 @@ class ScreenShot{
       identical(this, other) ||
           (other is ScreenShot &&
               runtimeType == other.runtimeType &&
-              _gameId == other._gameId &&
+              _imageId == other._imageId &&
               _link == other._link);
 
   @override
-  int get hashCode => _gameId.hashCode ^ _link.hashCode;
+  int get hashCode => _imageId.hashCode ^ _link.hashCode;
 
 
   String? get link => _link;
 
-  int? get gameId => _gameId;
+  String? get gameId => _imageId;
 }

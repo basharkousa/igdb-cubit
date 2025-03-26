@@ -10,6 +10,8 @@ class Game {
   final double? _ratings;
   final bool _isFavourite;
 
+  Cover? get cover => _cover;
+
   Game({
     required int? id,
     required Cover? cover,

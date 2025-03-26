@@ -26,21 +26,24 @@ class GameEntity {
       this.summery = "",
       this.screenshots = const []});
 
-  static from(Game gameModel) {
+  static from(Game game) {
     return GameEntity(
-      id: gameModel.id ?? Random().nextInt(10),
-      name: gameModel.name ?? "name",
-      imgUrl: gameModel.coverBig ?? "",
-      rating: gameModel.ratings ?? 0.0,
+      id: game.id ?? Random().nextInt(10),
+      name: game.name ?? "name",
+      imgUrl: game.coverBig ?? "",
+      rating: game.ratings ?? 0.0,
+      screenshots: game.screenshots?.map((element)=> element.link??'').toList()??[]
     );
   }
 
   static fromGameModel(GameModel gameModel) {
     return GameEntity(
       id: gameModel.id ?? Random().nextInt(10),
+      summery: gameModel.summary??'',
       name: gameModel.name ?? "name",
       imgUrl:"https://images.igdb.com/igdb/image/upload/t_cover_big/${gameModel.cover?.imageId}.jpg",
       rating: gameModel.rating ?? 0.0,
+      screenshots: gameModel.screenshots?.map((element)=> element.url??'').toList()??[]
     );
   }
 
@@ -53,7 +56,7 @@ class GameEntity {
         ratings: rating,
         isFavourite: isFavourite,
         screenshots: screenshots
-            .map((item) => ScreenShot(gameId: 0, link: item))
+            .map((item) => ScreenShot(imageId: "0", link: item))
             .toList(),
         summary: summery);
   }

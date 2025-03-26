@@ -2,6 +2,7 @@ import 'package:igameapp/src/core/configs/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:igameapp/src/core/configs/navigation/extension.dart';
+import 'package:igameapp/src/features/game/presentation/screens/gamedetailsscreen/game_details_screen.dart';
 import 'package:igameapp/src/features/game/presentation/screens/gamesscreen/cubit/games_cubit.dart';
 import 'package:igameapp/src/features/setting/presentation/settings_screen.dart';
 import 'package:igameapp/src/core/widgets/appbars/app_bar_home.dart';
@@ -62,8 +63,11 @@ class GamesScreen extends StatelessWidget {
                         homeCubit.getGames();
                       },
                     ),*/
+
+
                     // buildGameListWidgetState(context),
                     //pagination
+
                     PaginationBlocWidget<Game, GamesCubit>(
                       // Specify T and C
                       cubit: gamesCubit,
@@ -77,6 +81,7 @@ class GamesScreen extends StatelessWidget {
                         gamesCubit.loadMore();
                       },
                     ),
+
                     SizedBox(
                       height: 48.h,
                     ),
@@ -159,8 +164,7 @@ class GamesScreen extends StatelessWidget {
   }
 
   void goToGameDetailsScreen(Game game, BuildContext context) async {
-    // context.navigateTo(GameDetailsScreen.route, arguments: game);
-
+    context.navigateTo(GameDetailsScreen.route, arguments: game);
     // Get.toNamed(GameDetailsScreen.route, arguments: game);
   }
 

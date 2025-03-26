@@ -10,7 +10,10 @@ class GamesCubit extends BasePaginationCubit<Game> {
   final GetGamesUseCase getGamesUseCase;
   final ToggleFavouriteUseCase toggleFavouriteUseCase;
 
-  GamesCubit(this.gamesNoConnectionUseCase,this.getGamesUseCase,this.toggleFavouriteUseCase) : super() {
+  GamesCubit(this.gamesNoConnectionUseCase, this.getGamesUseCase,
+      this.toggleFavouriteUseCase)
+      : super() {
+
     // scrollController.addListener(_scrollListener);
     // getGames();
   }
@@ -109,8 +112,6 @@ class GamesCubit extends BasePaginationCubit<Game> {
       emit(HomeError(error.toString(), list));
     }
   }*/
-
-
 
   void clearGamesHistory() async {
     /* await repository.removeGames();
