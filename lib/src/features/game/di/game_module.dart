@@ -7,10 +7,12 @@ import 'package:igameapp/src/features/game/data/local/floor/dao/game_favorite_da
 import 'package:igameapp/src/features/game/data/models/gamesmodels/game_model.dart';
 import 'package:igameapp/src/features/game/domain/games_no_connection_usecase.dart';
 import 'package:igameapp/src/features/game/domain/get_games_usecase.dart';
+import 'package:igameapp/src/features/game/domain/get_local_stream_games.dart';
 import 'package:igameapp/src/features/game/domain/models/game.dart';
 import 'package:igameapp/src/features/game/domain/toggle_favourite_usecase.dart';
 import 'package:igameapp/src/features/game/presentation/screens/gamedetailsscreen/cubit/game_details_cubit.dart';
 import 'package:igameapp/src/features/game/presentation/screens/gamesscreen/cubit/games_cubit.dart';
+import 'package:igameapp/src/features/game/presentation/screens/savedgamesscreen/cubit/saved_games_cubit.dart';
 import 'package:injectable/injectable.dart';
 
 @module
@@ -38,4 +40,9 @@ abstract class GameModule {
           GameRepo repository, RouteSettingsService routeSettingService) =>
       GameDetailsCubit(repository,
           routeSettingService.currentRouteSettings?.arguments as Game);
+
+  @injectable
+  SavedGamesCubit savedGamesCubit(
+      GetLocalStreamGamesUseCase localGamesStreamUseCase,ToggleFavouriteUseCase toggleUseCase) =>
+      SavedGamesCubit(localGamesStreamUseCase,toggleUseCase);
 }

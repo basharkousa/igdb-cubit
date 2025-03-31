@@ -1,3 +1,4 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:igameapp/src/core/configs/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,19 +7,19 @@ import 'package:igameapp/src/core/widgets/appbars/app_bar_default.dart';
 import 'package:igameapp/src/core/widgets/buttons/button_default.dart';
 import 'package:igameapp/src/core/widgets/common/extentions.dart';
 import 'package:igameapp/src/features/game/presentation/screens/gamesscreen/cubit/games_cubit.dart';
+import 'package:igameapp/src/features/game/presentation/screens/savedgamesscreen/cubit/saved_games_cubit.dart';
 import 'package:igameapp/src/features/game/presentation/widgets/items/item_game.dart';
 import 'package:igameapp/src/core/utils/extensions.dart';
 import 'package:igameapp/src/features/game/domain/models/game.dart';
 import 'package:igameapp/src/features/game/presentation/screens/gamedetailsscreen/game_details_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
-class SavedGamesScreen extends StatelessWidget{
+class SavedGamesScreen extends StatelessWidget {
   static const String route = "/SavedGamesScreen";
 
-  final GamesCubit gamesCubit;
+  final SavedGamesCubit cubit;
 
-
-  const SavedGamesScreen({super.key,required this.gamesCubit});
+  const SavedGamesScreen({super.key, required this.cubit});
 
   @override
   Widget build(BuildContext context) {
@@ -33,47 +34,46 @@ class SavedGamesScreen extends StatelessWidget{
           children: [
             Expanded(
                 child: Container(
-              margin: EdgeInsetsDirectional.only(
-                  start: Dimens.mainMargin, end: Dimens.mainMargin),
-              child: RefreshIndicator(
-                onRefresh: gamesCubit.onRefresh,
-                color: context.colorScheme.secondary,
-                child: SingleChildScrollView(
-                    physics: AlwaysScrollableScrollPhysics(),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.max,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                      /*  BlocProvider.value(
-                          value: homeCubit,
-                          child: BlocBuilder<HomeCubit, HomeState>(
-                            builder: (context, state) {
-                              switch (state.runtimeType) {
-                                case HomeInitial:
-                                  return buildLoadingGamesWidget(context);
-                                case HomeLoading:
-                                  return buildLoadingGamesWidget(context);
-                                case HomeSuccess:
-                                  return buildGamesWidget(
-                                      (state as HomeSuccess).localGames);
-                                case HomeError:
-                                  return buildErrorConnectionWidget();
-                                default:
-                                  return const Text('Unexpected state');
-                              }
-                            },
-                          ),
-                        ),*/
-                        SizedBox(
-                          height: 48.h,
-                        ),
-                      ],
-                    )),
-              ),
-            )),
+                  margin: EdgeInsetsDirectional.only(
+                      start: Dimens.mainMargin, end: Dimens.mainMargin),
+                  child: RefreshIndicator(
+                    onRefresh: cubit.onRefresh,
+                    color: context.colorScheme.secondary,
+                    child: SingleChildScrollView(
+                        physics: AlwaysScrollableScrollPhysics(),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            SizedBox(
+                              height: 16.h,
+                            ),
+                            BlocProvider.value(
+                              value: cubit,
+                              child: BlocBuilder<
+                                  SavedGamesCubit,
+                                  SavedGamesState>(
+                                builder: (context, state) {
+                                  return state.when(
+                                      gamesLoaded: (games){
+                                        print("Screen${games.length} ${games.isEmpty}");
+                                        return buildGamesWidget(games);
+                                      },
+                                      gameError:(message) => buildGameErrorWidget(message),
+                                      gamesEmpty: (){
+                                        print("Screen");
+                                        return buildGameErrorWidget("Empty Game List");
+                                      });
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: 48.h,
+                            ),
+                          ],
+                        )),
+                  ),
+                )),
           ],
         ),
         bottomNavigationBar: buildButtonClearHistory(context),
@@ -81,8 +81,7 @@ class SavedGamesScreen extends StatelessWidget{
     );
   }
 
-
- /* Widget buildErrorConnectionWidget() {
+  /* Widget buildErrorConnectionWidget() {
     return (homeCubit.state as HomeError).localGames?.isNotEmpty??false // Check for local games state
         ? buildGamesWidget((homeCubit.state as HomeError).localGames??[])
         : Center(
@@ -96,12 +95,12 @@ class SavedGamesScreen extends StatelessWidget{
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return ItemGame(
-            onFavouriteCLick: (game){
-
+            onFavouriteCLick: (game) {
+              cubit.toggleFavouriteState(game);
             },
             game: list[index],
             onClick: (game) {
-              context.navigateTo(GameDetailsScreen.route,arguments: game);
+              context.navigateTo(GameDetailsScreen.route, arguments: game);
             },
           );
         },
@@ -113,20 +112,20 @@ class SavedGamesScreen extends StatelessWidget{
         itemCount: list.length);
   }
 
-
   buildButtonClearHistory(BuildContext context) {
     return ButtonDefault(
       title: context.l.clean_cash,
-    ).onClickBounce((){
-      gamesCubit.clearGamesHistory();
+    ).onClickBounce(() {
+      // cubit.clearGamesHistory();
     });
   }
 
   Widget buildLoadingGamesWidget(BuildContext context) {
     return Shimmer.fromColors(
       baseColor: context.isDarkMode ? Colors.white12 : Colors.grey[300]!,
-      highlightColor:
-      context.isDarkMode ? Colors.white12.withOpacity(0.5) : Colors.grey[100]!,
+      highlightColor: context.isDarkMode
+          ? Colors.white12.withOpacity(0.5)
+          : Colors.grey[100]!,
       child: ListView.separated(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
@@ -142,5 +141,7 @@ class SavedGamesScreen extends StatelessWidget{
     );
   }
 
-
+  Widget buildGameErrorWidget(String message) {
+    return Center(child: Text(message),);
+  }
 }

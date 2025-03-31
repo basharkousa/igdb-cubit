@@ -89,6 +89,7 @@ class GamesCubit extends BasePaginationCubit<Game> {
     }
   }
 */
+
   /*void getGames() async {
     emit(HomeLoading());
     try {
@@ -113,6 +114,8 @@ class GamesCubit extends BasePaginationCubit<Game> {
     }
   }*/
 
+
+
   void clearGamesHistory() async {
     /* await repository.removeGames();
     var list = await getLocalGamesList();
@@ -130,13 +133,5 @@ class GamesCubit extends BasePaginationCubit<Game> {
     emit(ApiCompleted(updatedGames));
     toggleFavouriteUseCase(game);
 
-    // emit(ApiCompleted(state.data));
-    // var newState = !game.isFavourite;
-
-    //1usecase
-    //if selected Remove it
-    //if not Add it
-    //2uscase
-    //switch
   }
 }

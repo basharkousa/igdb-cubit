@@ -1,4 +1,3 @@
-import 'package:igameapp/src/core/data/local/datasources/sharedpref/shared_preference_helper.dart';
 import 'package:igameapp/src/core/data/models/BaseResponse.dart';
 import 'package:igameapp/src/core/data/remote/api/clients/dio_client.dart';
 import 'package:igameapp/src/core/data/remote/constants/endpoints.dart';
@@ -15,8 +14,7 @@ class GameRepo implements IGameRepo {
   final GameDao _gameDao;
   final GameFavoriteDao _gameFavoriteDao;
 
-
-  GameRepo(this._dioClient, this._gameDao,this._gameFavoriteDao);
+  GameRepo(this._dioClient, this._gameDao, this._gameFavoriteDao);
 
   @override
   Future<BaseResponse<GameModel>> getGames(Map<String, dynamic> params) async {
@@ -39,28 +37,38 @@ class GameRepo implements IGameRepo {
       _gameDao.insertGame(GameEntity.from(game));
 
   @override
-  Future<void> addGames(List<GameModel> games) async => _gameDao.insertGames(
-      games.map<GameEntity>((gameModel) => GameEntity.fromGameModel(gameModel)).toList());
+  Future<void> addGames(List<GameModel> games) async =>
+      _gameDao.insertGames(games
+          .map<GameEntity>((gameModel) => GameEntity.fromGameModel(gameModel))
+          .toList());
 
   @override
   Future<void> removeGames() => _gameDao.deleteAllGames();
 
   @override
   Future<void> toggleFavouriteGame(Game game) async {
-    if(game.isFavourite){
-      _gameFavoriteDao.deleteFavoriteGame(GameFavoriteEntity.from(game));
-    }else{
-      _gameFavoriteDao.insertFavoriteGame(GameFavoriteEntity.from(game));
+    if (game.isFavourite) {
+      _gameFavoriteDao.deleteFavoriteGame(GameFavoriteEntity.from(
+          game.copyWith(isFavourite: !game.isFavourite)));
+    } else {
+      _gameFavoriteDao.insertFavoriteGame(GameFavoriteEntity.from(
+          game.copyWith(isFavourite: !game.isFavourite)));
     }
     var games = await _gameFavoriteDao.findAllFavoriteGames();
     print("FavouriteGamesLength ${games.length}");
   }
 
+  @override
   Future<bool> isGameFavorite(int gameId) async {
     final game = await _gameFavoriteDao.findGameById(gameId);
     return game != null;
   }
 
-
-
+  @override
+  Stream<List<Game>> getLocalStreamGames() {
+    return _gameFavoriteDao.findAllFavoriteAsStream().map((list) {
+      print("Sizeo${list.length}");
+      return list.map((entity) => entity.toGame()).toList();
+    });
+  }
 }

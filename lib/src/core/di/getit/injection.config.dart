@@ -36,6 +36,8 @@ import 'package:igameapp/src/features/game/domain/games_no_connection_usecase.da
     as _i11;
 import 'package:igameapp/src/features/game/domain/get_games_usecase.dart'
     as _i429;
+import 'package:igameapp/src/features/game/domain/get_local_stream_games.dart'
+    as _i495;
 import 'package:igameapp/src/features/game/domain/remove_local_games_usecase.dart'
     as _i169;
 import 'package:igameapp/src/features/game/domain/toggle_favourite_usecase.dart'
@@ -44,6 +46,8 @@ import 'package:igameapp/src/features/game/presentation/screens/gamedetailsscree
     as _i50;
 import 'package:igameapp/src/features/game/presentation/screens/gamesscreen/cubit/games_cubit.dart'
     as _i219;
+import 'package:igameapp/src/features/game/presentation/screens/savedgamesscreen/cubit/saved_games_cubit.dart'
+    as _i195;
 import 'package:igameapp/src/features/setting/presentation/cubit/settings_cubit.dart'
     as _i551;
 import 'package:igameapp/src/features/splash/presentation/cubit/splash_cubit.dart'
@@ -107,6 +111,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i429.GetGamesUseCase(gh<_i230.GameRepo>()));
     gh.factory<_i204.ToggleFavouriteUseCase>(
         () => _i204.ToggleFavouriteUseCase(gh<_i230.GameRepo>()));
+    gh.factory<_i495.GetLocalStreamGamesUseCase>(
+        () => _i495.GetLocalStreamGamesUseCase(gh<_i230.GameRepo>()));
     gh.factory<_i551.SettingsCubit>(() => appModule.settingsCubit(
           gh<_i309.AppRepo>(),
           gh<_i169.RemoveLocalGamesUseCase>(),
@@ -116,6 +122,10 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i230.GameRepo>(),
               gh<_i169.RemoveLocalGamesUseCase>(),
             ));
+    gh.factory<_i195.SavedGamesCubit>(() => gameModule.savedGamesCubit(
+          gh<_i495.GetLocalStreamGamesUseCase>(),
+          gh<_i204.ToggleFavouriteUseCase>(),
+        ));
     gh.lazySingleton<_i219.GamesCubit>(() => gameModule.gamesCubit(
           gh<_i11.GamesNoConnectionUseCase>(),
           gh<_i429.GetGamesUseCase>(),

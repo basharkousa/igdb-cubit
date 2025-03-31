@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:igameapp/src/features/game/presentation/screens/gamesscreen/cubit/games_cubit.dart';
 import 'package:igameapp/src/features/game/presentation/screens/gamesscreen/games_screen.dart';
+import 'package:igameapp/src/features/game/presentation/screens/savedgamesscreen/cubit/saved_games_cubit.dart';
 import 'package:igameapp/src/features/splash/presentation/splash_screen.dart';
 import 'package:igameapp/src/features/game/presentation/screens/gamedetailsscreen/cubit/game_details_cubit.dart';
 import 'package:igameapp/src/features/game/presentation/screens/gamedetailsscreen/game_details_screen.dart';
@@ -53,7 +54,7 @@ class Routes {
             settings: settings,
             barrierDismissible: true,
             builder: (_){
-          return SavedGamesScreen(gamesCubit: getIt<GamesCubit>());
+          return SavedGamesScreen(cubit: getIt<SavedGamesCubit>());
         });
 
       default:
