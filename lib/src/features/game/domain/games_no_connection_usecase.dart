@@ -25,11 +25,13 @@ class GamesNoConnectionUseCase {
               .toList() ??
           []);
     } catch (e, t) {
+
       var localGames = await _gameRep.getLocalGames();
       return Future.wait(localGames
           .map((element) async =>
               element.toGame(await _gameRep.isGameFavorite(element.id ?? 0)))
           .toList());
+
     }
   }
 }

@@ -243,8 +243,10 @@ class GameDetailsScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
+                  // showPhotoViewDialog(
+                  //     "https://images.igdb.com/igdb/image/upload/t_screenshot_big/${(detailsCubit.state as GameDetailsInitial).game?.screenshots?[index].gameId}.jpg",context);
                   showPhotoViewDialog(
-                      "https://images.igdb.com/igdb/image/upload/t_screenshot_big/${(detailsCubit.state as GameDetailsInitial).game?.screenshots?[index].gameId}.jpg",context);
+                      "${(detailsCubit.state as GameDetailsInitial).game?.screenshots?[index].link}",context);
                 },
                 child: Container(
                   // width: 166.w,
@@ -259,9 +261,10 @@ class GameDetailsScreen extends StatelessWidget {
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(16.r),
                       child: MyCachedNetworkImage(
-                        // imUrl: controller.game?.screenshots![index].url,
                         imUrl:
-                            "https://images.igdb.com/igdb/image/upload/t_screenshot_big/${(detailsCubit.state as GameDetailsInitial).game?.screenshots?[index].gameId}.jpg",
+                            "${(detailsCubit.state as GameDetailsInitial).game?.screenshots?[index].link}",
+                        // imUrl:
+                        //     "https://images.igdb.com/igdb/image/upload/t_screenshot_big/${(detailsCubit.state as GameDetailsInitial).game?.screenshots?[index].gameId}.jpg",
                       )),
                 ),
               );

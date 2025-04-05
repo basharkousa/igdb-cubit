@@ -43,7 +43,8 @@ class GameEntity {
       name: gameModel.name ?? "name",
       imgUrl:"https://images.igdb.com/igdb/image/upload/t_cover_big/${gameModel.cover?.imageId}.jpg",
       rating: gameModel.rating ?? 0.0,
-      screenshots: gameModel.screenshots?.map((element)=> element.url??'').toList()??[]
+      // screenshots: gameModel.screenshots?.map((element)=> element.url??'').toList()??[]
+      screenshots: gameModel.screenshots?.map((element)=> "https://images.igdb.com/igdb/image/upload/t_screenshot_big/${element.imageId}.jpg").toList()??[]
     );
   }
 

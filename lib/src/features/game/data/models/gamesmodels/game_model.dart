@@ -313,7 +313,7 @@ class GameModel {
         ratings: rating,
         isFavourite: isFavourite,
         // "https://images.igdb.com/igdb/image/upload/t_screenshot_big/${(detailsCubit.state as GameDetailsInitial).game.screenshots?[index].imageId}.jpg",
-        screenshots: screenshots?.map((item) => ScreenShot(imageId: item.imageId, link: "https://images.igdb.com/igdb/image/upload/t_screenshot_big/${item.id}.jpg"))
+        screenshots: screenshots?.map((item) => ScreenShot(imageId: item.id.toString(), link: "https://images.igdb.com/igdb/image/upload/t_screenshot_big/${item.imageId}.jpg"))
             .toList(),
         summary: summary);
   }

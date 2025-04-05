@@ -37,7 +37,7 @@ class GameFavoriteEntity {
       imgUrl: game.coverBig ?? "",
       rating: game.ratings ?? 0.0,
       isFavourite: game.isFavourite,
-      screenshots: game.screenshots?.map((element)=> element.link??'').toList()??[]
+      screenshots: game.screenshots?.map((element)=> "${element.link}").toList()??[]
     );
   }
 
