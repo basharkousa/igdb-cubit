@@ -216,6 +216,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Clean Cash'**
   String get clean_cash;
+
+  /// No description provided for @client_secret.
+  ///
+  /// In en, this message translates to:
+  /// **'Client Secret'**
+  String get client_secret;
+
+  /// No description provided for @enter_client_secret.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter client secret'**
+  String get enter_client_secret;
+
+  /// No description provided for @enter_client_id.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter client id'**
+  String get enter_client_id;
+
+  /// No description provided for @client_id.
+  ///
+  /// In en, this message translates to:
+  /// **'Client id'**
+  String get client_id;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

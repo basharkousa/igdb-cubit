@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:igameapp/src/core/data/models/BaseResponse.dart';
 import 'package:igameapp/src/core/data/models/errorappmodel/error_app_model.dart';
 import 'package:igameapp/src/core/utils/basic_tools.dart';
 
@@ -25,10 +26,11 @@ class DioErrorUtil {
         case DioExceptionType.badResponse:
           try {
             //todo we must add Error model which is related to Api error response api
-            ErrorAppModel errorappmodel =
-            ErrorAppModel.fromJson(error.response!.data!);
+            print("ErrorHere");
 
-            errorDescription = "${errorappmodel.error}";
+            BaseResponse errorappmodel =
+            BaseResponse.fromJson(json: error.response!.data!,);
+            errorDescription = "${errorappmodel.data["message"]}";
           } catch (error, stacktrace) {
             print("DioExceptionTypeBadResponse $error $stacktrace");
           }

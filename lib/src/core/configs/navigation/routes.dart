@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:igameapp/src/features/auth/presentation/screens/login/cubit/login_cubit.dart';
+import 'package:igameapp/src/features/auth/presentation/screens/login/login_screen.dart';
 import 'package:igameapp/src/features/game/presentation/screens/gamesscreen/cubit/games_cubit.dart';
 import 'package:igameapp/src/features/game/presentation/screens/gamesscreen/games_screen.dart';
 import 'package:igameapp/src/features/game/presentation/screens/savedgamesscreen/cubit/saved_games_cubit.dart';
@@ -29,7 +31,17 @@ class Routes {
         );
       case GamesScreen.route:
         return PageTransition(
-            child: GamesScreen(gamesCubit: getIt<GamesCubit>(),),
+            child: GamesScreen(
+              gamesCubit: getIt<GamesCubit>(),
+            ),
+            type: PageTransitionType.fade,
+            duration: Duration(seconds: 1));
+
+      case LoginScreen.route:
+        return PageTransition(
+            child: LoginScreen(
+              cubit: getIt<LoginCubit>(),
+            ),
             type: PageTransitionType.fade,
             duration: Duration(seconds: 1));
 
@@ -53,9 +65,9 @@ class Routes {
         return MaterialPageRoute(
             settings: settings,
             barrierDismissible: true,
-            builder: (_){
-          return SavedGamesScreen(cubit: getIt<SavedGamesCubit>());
-        });
+            builder: (_) {
+              return SavedGamesScreen(cubit: getIt<SavedGamesCubit>());
+            });
 
       default:
         return MaterialPageRoute(
@@ -67,5 +79,3 @@ class Routes {
     }
   }
 }
-
-

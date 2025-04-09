@@ -19,7 +19,7 @@ class BaseResponse<T> {
               ? fromJsonMapper(json[dataKey])
               : json[dataKey]
           : (json != null && json is! List)
-              ? fromJsonMapper!(json)
+              ? json
               : null,
       list: (json != null && dataKey != null && json[dataKey] is List)
           ? (json[dataKey] as List?)

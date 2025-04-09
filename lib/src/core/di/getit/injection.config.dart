@@ -26,6 +26,10 @@ import 'package:igameapp/src/core/di/getit/modules/app_modules.dart' as _i838;
 import 'package:igameapp/src/core/di/getit/modules/local_modules.dart' as _i934;
 import 'package:igameapp/src/core/di/getit/modules/remote_modules.dart'
     as _i360;
+import 'package:igameapp/src/features/auth/data/auth_repo.dart' as _i504;
+import 'package:igameapp/src/features/auth/di/auth_module.dart' as _i824;
+import 'package:igameapp/src/features/auth/presentation/screens/login/cubit/login_cubit.dart'
+    as _i729;
 import 'package:igameapp/src/features/game/data/game_repo.dart' as _i230;
 import 'package:igameapp/src/features/game/data/local/floor/dao/game_dao.dart'
     as _i209;
@@ -69,6 +73,7 @@ extension GetItInjectableX on _i174.GetIt {
     final appModule = _$AppModule();
     final remoteModule = _$RemoteModule();
     final localModule = _$LocalModule();
+    final authModule = _$AuthModule();
     final gameModule = _$GameModule();
     gh.lazySingleton<_i764.RouteSettingsService>(
         () => appModule.routeSettingsService);
@@ -82,6 +87,10 @@ extension GetItInjectableX on _i174.GetIt {
       () => localModule.database,
       preResolve: true,
     );
+    gh.lazySingleton<_i361.Dio>(
+      () => authModule.dioAuth(),
+      instanceName: 'authDio',
+    );
     gh.lazySingleton<_i765.DioClient>(
         () => remoteModule.dioClient(gh<_i361.Dio>()));
     gh.lazySingleton<_i209.GameDao>(
@@ -90,6 +99,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => gameModule.gameFavoriteDao(gh<_i400.AppDatabase>()));
     gh.lazySingleton<_i909.SharedPreferenceHelper>(() =>
         localModule.sharedPreferenceHelper(gh<_i460.SharedPreferences>()));
+    gh.lazySingleton<_i765.DioClient>(
+      () => authModule.dioClientAuth(gh<_i361.Dio>(instanceName: 'authDio')),
+      instanceName: 'authDioClient',
+    );
     gh.lazySingleton<_i309.AppRepo>(
         () => appModule.appRepository(gh<_i909.SharedPreferenceHelper>()));
     gh.lazySingleton<_i230.GameRepo>(() => gameModule.gameRepo(
@@ -103,6 +116,10 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i230.GameRepo>(),
           gh<_i764.RouteSettingsService>(),
         ));
+    gh.lazySingleton<_i504.AuthRepo>(() => authModule
+        .authRepo(gh<_i765.DioClient>(instanceName: 'authDioClient')));
+    gh.lazySingleton<_i729.LoginCubit>(
+        () => authModule.gamesCubit(gh<_i504.AuthRepo>()));
     gh.factory<_i417.SplashCubit>(
         () => appModule.splashCubit(gh<_i309.AppRepo>()));
     gh.factory<_i169.RemoveLocalGamesUseCase>(
@@ -144,5 +161,7 @@ class _$AppModule extends _i838.AppModule {
 class _$RemoteModule extends _i360.RemoteModule {}
 
 class _$LocalModule extends _i934.LocalModule {}
+
+class _$AuthModule extends _i824.AuthModule {}
 
 class _$GameModule extends _i368.GameModule {}

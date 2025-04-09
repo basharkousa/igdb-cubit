@@ -19,6 +19,11 @@
     "delete": "Delete",
     "settings": "Settings",
     "remove_games": "Remove games",
-    "clean_cash": "Clean Cash"
+    "clean_cash": "Clean Cash",
+    "client_secret": "Client Secret",
+    "enter_client_secret": "Enter client secret",
+    "enter_client_id": "Enter client id",
+    "client_id": "Client id",
+    "login": "Login"
 
 }

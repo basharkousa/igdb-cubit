@@ -67,4 +67,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get clean_cash => 'Clean Cash';
+
+  @override
+  String get client_secret => 'Client Secret';
+
+  @override
+  String get enter_client_secret => 'Enter client secret';
+
+  @override
+  String get enter_client_id => 'Enter client id';
+
+  @override
+  String get client_id => 'Client id';
+
+  @override
+  String get login => 'Login';
 }
