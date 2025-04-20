@@ -5,9 +5,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:igameapp/src/core/configs/navigation/extension.dart';
 import 'package:igameapp/src/core/di/getit/injection.dart';
+import 'package:igameapp/src/features/auth/presentation/screens/login/login_screen.dart';
 import 'package:igameapp/src/features/game/presentation/screens/gamesscreen/games_screen.dart';
 import 'package:igameapp/src/features/splash/presentation/cubit/splash_cubit.dart';
-import 'package:igameapp/src/core/widgets/common/state_ful_wrapper.dart';
 import 'package:igameapp/src/core/utils/extensions.dart';
 import '../../../core/widgets/sections/app_logo_widget.dart';
 import '../../../core/widgets/sections/background_theme_widget.dart';
@@ -44,7 +44,19 @@ class SplashScreenPage extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      BlocProvider(
+                      BlocProvider(create: (context) => splashCubit,
+                        child: BlocConsumer<SplashCubit, SplashState>(
+                          listener: (context, state) {
+                            if (state is SplashSuccess) {
+                              _navigateToHomeScreen(context);
+                            }else{
+                              _navigateToLoginScreen(context);
+                            }
+                          }, builder: (context, state) {
+                            return buildLoadingGamesWidget(context);
+                        },),),
+
+                      /*BlocProvider(
                         create: (context) => splashCubit,
                         child: BlocBuilder<SplashCubit, SplashState>(
                           builder: (context, state) {
@@ -67,7 +79,8 @@ class SplashScreenPage extends StatelessWidget {
                             }
                           },
                         ),
-                      ),
+                      ),*/
+
                       /* GetXStateWidget(
                         snapshotLiveData: controller.loginResponseLiveData,
                         loadingWidget: SpinKitCircle(
@@ -99,11 +112,15 @@ class SplashScreenPage extends StatelessWidget {
     );
   }
 
-  Future<void> goToHomeScreen(BuildContext context) async {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.navigateAndRemoveUntil(GamesScreen.route,
+  Future<void> _navigateToHomeScreen(BuildContext context) async {
+    context.navigateAndRemoveUntil(GamesScreen.route,
           predicate: (route) => false);
-    });
+    // context.goNamed(HomeScreen.route,);
+    // Get.offNamed(HomeScreen.route);
+  }
+
+  Future<void> _navigateToLoginScreen(BuildContext context) async {
+    context.navigateAndRemoveUntil(LoginScreen.route,);
     // context.goNamed(HomeScreen.route,);
     // Get.offNamed(HomeScreen.route);
   }

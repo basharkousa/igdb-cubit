@@ -12,13 +12,12 @@ import 'package:igameapp/src/core/widgets/sections/app_logo_widget.dart';
 import 'package:igameapp/src/core/widgets/sections/background_theme_widget.dart';
 import 'package:igameapp/src/features/auth/presentation/screens/login/cubit/login_cubit.dart';
 import 'package:igameapp/src/features/game/presentation/screens/gamesscreen/games_screen.dart';
-import 'package:igameapp/src/core/widgets/common/state_ful_wrapper.dart';
 import 'package:igameapp/src/core/utils/extensions.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String route = "/Login";
 
-  final LoginCubit cubit ;
+  final LoginCubit cubit;
 
   const LoginScreen({super.key, required this.cubit});
 
@@ -27,7 +26,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   final form = GlobalKey<FormState>();
   FocusNode clientIdFocusNode = FocusNode();
   FocusNode clientSecretFocusNode = FocusNode();
@@ -36,7 +34,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   TextEditingController clientIdEditingController = TextEditingController();
   TextEditingController clientSecretEditingController = TextEditingController();
-
 
   @override
   void initState() {
@@ -59,9 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const BackGroundThemeWidget(),
               const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-
-                ],
+                children: [],
               ),
               Align(
                 alignment: AlignmentDirectional.bottomCenter,
@@ -73,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         AppLogoSection(),
-                        BlocProvider(
+                      /*  BlocProvider(
                           create: (context) => widget.cubit,
                           child: BlocBuilder<LoginCubit, LoginState>(
                             builder: (context, state) {
@@ -83,21 +78,38 @@ class _LoginScreenState extends State<LoginScreen> {
                                 case LoginLoading():
                                   return buildLoadingGamesWidget(context);
                                 case LoginSuccess():
+                                  BasicTools.showToastMessage(state.loginResponse?.accessToken??"Bad Response");
                                   return buildContent(context);
                                 case LoginError():
-                                  return Container();
+                                  BasicTools.showToastMessage(state.message);
+                                  return buildContent(context,);
                               }
                             },
                           ),
-                        ),
-                        /* GetXStateWidget(
-                          snapshotLiveData: controller.loginResponseLiveData,
-                          loadingWidget: SpinKitCircle(
-                            color: Get.isDarkMode ? Colors.white : Colors.black,
-                            // color: Colors.red,
-                            size: 32.h,
-                          ),
                         ),*/
+                        BlocProvider(
+                          create: (context) => widget.cubit,
+                          child: BlocConsumer<LoginCubit, LoginState>(
+                            listener: (context, state) {
+                              // Handle all side effects here
+                              if (state is LoginSuccess) {
+                                BasicTools.showToastMessage(
+                                    state.loginResponse?.accessToken ?? "Bad Response");
+                                _navigateToHomeScreen(context);
+                              } else if (state is LoginError) {
+                                BasicTools.showToastMessage(state.message);
+                              }
+                            },
+                            builder: (context, state) {
+                              // Pure UI building - no side effects
+                              if (state is LoginLoading) {
+                                return buildLoadingGamesWidget(context);
+                              }
+                              // All other states show the same content
+                              return buildContent(context);
+                            },
+                          ),
+                        ),
                         SizedBox(
                           height: 21.h,
                         ),
@@ -130,6 +142,10 @@ class _LoginScreenState extends State<LoginScreen> {
     // context.goNamed(HomeScreen.route,);
     // Get.offNamed(HomeScreen.route);
   }
+  void _navigateToHomeScreen(BuildContext context) {
+    context.navigateAndRemoveUntil(GamesScreen.route,
+        predicate: (route) => false);
+  }
 
   Widget buildLoadingGamesWidget(BuildContext context) {
     return SpinKitCircle(
@@ -139,14 +155,20 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  // Widget buildContent(BuildContext context,{String msg = ""}) {
   Widget buildContent(BuildContext context) {
     return Column(
       children: [
-      SizedBox(height: 16.h,),
-      buildLoginFormWidget(context),
-      SizedBox(height: 16.h,),
-      buildLoginButtonSubmit(context),
-    ],);
+        SizedBox(
+          height: 16.h,
+        ),
+        buildLoginFormWidget(context),
+        SizedBox(
+          height: 16.h,
+        ),
+        buildLoginButtonSubmit(context),
+      ],
+    );
   }
 
   buildLoginFormWidget(BuildContext context) {
@@ -162,7 +184,6 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: 24.h),
             buildClientSecretFieldTitle(context),
             SizedBox(height: 24.h),
-
           ],
         ),
       ),
@@ -173,8 +194,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return DefaultTextField(
       controller: clientIdEditingController,
       textValidType: TextValidType.GENERAL,
-        // client_id
-      onSaved: (value) => widget.cubit.state.loginForm["client_id"] = value.toString(),
+      // client_id
+      onSaved: (value) =>
+          widget.cubit.state.loginForm["client_id"] = value.toString(),
       // initialValue: controller.user.value.email,
       onFieldSubmitted: (_) {
         // FocusScope.of(context).requestFocus(controller.phoneFocusNode);
@@ -198,7 +220,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return DefaultTextField(
       controller: clientSecretEditingController,
       textValidType: TextValidType.GENERAL,
-      onSaved: (value) => widget.cubit.state.loginForm["client_secret"] = value.toString(),
+      onSaved: (value) =>
+          widget.cubit.state.loginForm["client_secret"] = value.toString(),
       // initialValue: controller.user.value.email,
       onFieldSubmitted: (_) {
         // FocusScope.of(context).requestFocus(controller.phoneFocusNode);
@@ -233,8 +256,6 @@ class _LoginScreenState extends State<LoginScreen> {
       form.save();
       BasicTools.hideKeyboard(context);
       widget.cubit.postGetToken();
-    } else {
-
-    }
+    } else {}
   }
 }

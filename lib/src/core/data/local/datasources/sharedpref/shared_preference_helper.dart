@@ -104,4 +104,9 @@ class SharedPreferenceHelper {
     return _sharedPreference.setString(Preferences.theme_mode, theme);
   }
 
+  String? get token => _sharedPreference.getString(Preferences.token);
+  setToken(String? token) => _sharedPreference.setString(Preferences.token,token??'');
+  removeToken() => _sharedPreference.remove(Preferences.token);
+
+
 }

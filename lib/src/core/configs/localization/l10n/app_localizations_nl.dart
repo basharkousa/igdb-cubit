@@ -69,17 +69,17 @@ class AppLocalizationsNl extends AppLocalizations {
   String get clean_cash => 'Clean Cash';
 
   @override
-  String get client_secret => 'Client Secret';
+  String get client_secret => 'Clientgeheim';
 
   @override
-  String get enter_client_secret => 'Enter client secret';
+  String get enter_client_secret => 'Voer clientgeheim in';
 
   @override
-  String get enter_client_id => 'Enter client id';
+  String get enter_client_id => 'Voer client-ID in';
 
   @override
-  String get client_id => 'Client id';
+  String get client_id => 'Client-ID';
 
   @override
-  String get login => 'Login';
+  String get login => 'Inloggen';
 }

@@ -105,6 +105,10 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i309.AppRepo>(
         () => appModule.appRepository(gh<_i909.SharedPreferenceHelper>()));
+    gh.lazySingleton<_i504.AuthRepo>(() => authModule.authRepo(
+          gh<_i765.DioClient>(instanceName: 'authDioClient'),
+          gh<_i909.SharedPreferenceHelper>(),
+        ));
     gh.lazySingleton<_i230.GameRepo>(() => gameModule.gameRepo(
           gh<_i765.DioClient>(),
           gh<_i209.GameDao>(),
@@ -116,12 +120,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i230.GameRepo>(),
           gh<_i764.RouteSettingsService>(),
         ));
-    gh.lazySingleton<_i504.AuthRepo>(() => authModule
-        .authRepo(gh<_i765.DioClient>(instanceName: 'authDioClient')));
     gh.lazySingleton<_i729.LoginCubit>(
-        () => authModule.gamesCubit(gh<_i504.AuthRepo>()));
-    gh.factory<_i417.SplashCubit>(
-        () => appModule.splashCubit(gh<_i309.AppRepo>()));
+        () => authModule.loginCubit(gh<_i504.AuthRepo>()));
     gh.factory<_i169.RemoveLocalGamesUseCase>(
         () => _i169.RemoveLocalGamesUseCase(gh<_i230.GameRepo>()));
     gh.factory<_i429.GetGamesUseCase>(
@@ -134,6 +134,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i309.AppRepo>(),
           gh<_i169.RemoveLocalGamesUseCase>(),
         ));
+    gh.factory<_i417.SplashCubit>(
+        () => appModule.splashCubit(gh<_i504.AuthRepo>()));
     gh.factory<_i11.GamesNoConnectionUseCase>(
         () => _i11.GamesNoConnectionUseCase(
               gh<_i230.GameRepo>(),

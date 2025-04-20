@@ -2,6 +2,7 @@ import 'package:igameapp/src/core/configs/navigation/route_setting.dart';
 import 'package:igameapp/src/app/app_cubit.dart';
 import 'package:igameapp/src/core/data/local/datasources/sharedpref/shared_preference_helper.dart';
 import 'package:igameapp/src/app/app_repo.dart';
+import 'package:igameapp/src/features/auth/data/auth_repo.dart';
 import 'package:igameapp/src/features/setting/presentation/cubit/settings_cubit.dart';
 import 'package:igameapp/src/features/splash/presentation/cubit/splash_cubit.dart';
 import 'package:igameapp/src/features/game/domain/remove_local_games_usecase.dart';
@@ -20,7 +21,7 @@ abstract class AppModule {
   AppCubit appCubit(AppRepo appRepo) => AppCubit(appRepo);
 
   @injectable
-  SplashCubit splashCubit(AppRepo repository) => SplashCubit(repository);
+  SplashCubit splashCubit(AuthRepo repository) => SplashCubit(repository);
 
 
   @injectable

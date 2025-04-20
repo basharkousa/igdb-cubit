@@ -69,17 +69,17 @@ class AppLocalizationsAr extends AppLocalizations {
   String get clean_cash => 'Clean Cash';
 
   @override
-  String get client_secret => 'Client Secret';
+  String get client_secret => 'رمز العميل السري';
 
   @override
-  String get enter_client_secret => 'Enter client secret';
+  String get enter_client_secret => 'أدخل رمز العميل السري';
 
   @override
-  String get enter_client_id => 'Enter client id';
+  String get enter_client_id => 'أدخل معرف العميل';
 
   @override
-  String get client_id => 'Client id';
+  String get client_id => 'معرف العميل';
 
   @override
-  String get login => 'Login';
+  String get login => 'تسجيل الدخول';
 }

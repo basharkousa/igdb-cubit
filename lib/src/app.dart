@@ -5,8 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:igameapp/src/core/configs/localization/l10n/app_localizations.dart';
 import 'package:igameapp/src/core/configs/navigation/route_observer.dart';
 import 'package:igameapp/src/core/di/getit/injection.dart';
-import 'package:igameapp/src/features/auth/presentation/screens/login/cubit/login_cubit.dart';
-import 'package:igameapp/src/features/auth/presentation/screens/login/login_screen.dart';
 import 'package:igameapp/src/features/splash/presentation/splash_screen.dart';
 import 'core/configs/theme/app_theme.dart';
 import 'core/configs/navigation/routes.dart';
@@ -49,8 +47,8 @@ class App extends StatelessWidget{
               // theme: AppTheme.getAppThem(Get.find<SharedPreferenceHelper>().themeMode??'dark'),
               theme: AppTheme.getAppThem(
                  state.themeMode , state.locale.languageCode),
-              // initialRoute: SplashScreenPage.route,
-              home: LoginScreen(cubit: getIt<LoginCubit>()),
+              initialRoute: SplashScreenPage.route,
+              // home: LoginScreen(cubit: getIt<LoginCubit>()),
               navigatorObservers: [MyRouteObserver()],
               routes: Routes.routes,
               onGenerateRoute: Routes.generateRoute,

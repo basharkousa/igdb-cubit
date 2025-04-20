@@ -18,5 +18,10 @@
   "delete": "حذف",
   "settings": "الإعدادات",
   "remove_games": "إزالة الألعاب",
-  "clean_cash": "Clean Cash"
+  "clean_cash": "Clean Cash",
+  "client_secret": "رمز العميل السري",
+  "enter_client_secret": "أدخل رمز العميل السري",
+  "enter_client_id": "أدخل معرف العميل",
+  "client_id": "معرف العميل",
+  "login": "تسجيل الدخول"
 }

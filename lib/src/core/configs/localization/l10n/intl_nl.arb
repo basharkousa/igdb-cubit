@@ -18,6 +18,11 @@
   "delete": "Verwijderen",
   "settings": "Instellingen",
   "remove_games": "Spellen verwijderen",
-  "clean_cash": "Clean Cash"
+  "clean_cash": "Clean Cash",
+  "client_secret": "Clientgeheim",
+  "enter_client_secret": "Voer clientgeheim in",
+  "enter_client_id": "Voer client-ID in",
+  "client_id": "Client-ID",
+  "login": "Inloggen"
 
 }

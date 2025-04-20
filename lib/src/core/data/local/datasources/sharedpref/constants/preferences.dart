@@ -19,6 +19,8 @@ class Preferences {
   static const String isLoggedIn = "isLoggedIn";
   static const String historySearch = 'HISTORY_SEARCH';
 
+  static const String token = 'token';
+
 
 
 }

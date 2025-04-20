@@ -11,8 +11,8 @@ extension NavigationExtension on BuildContext {
     Navigator.pushReplacementNamed(this, routeName, arguments: arguments);
   }
 
-  void navigateAndRemoveUntil(String routeName, {Object? arguments, required RoutePredicate predicate}) {
-    Navigator.pushNamedAndRemoveUntil(this, routeName, predicate, arguments: arguments);
+  void navigateAndRemoveUntil(String routeName, {Object? arguments, RoutePredicate? predicate}) {
+    Navigator.pushNamedAndRemoveUntil(this, routeName, predicate?? (route)=> false, arguments: arguments);
   }
 
   void popUntil(RoutePredicate predicate) {

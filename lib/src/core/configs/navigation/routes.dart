@@ -20,9 +20,28 @@ class Routes {
     // SplashScreenPage.route: (BuildContext context) => SplashScreenPage(),
   };
 
+  static bool isUserLoggedIn() {
+    // Example: Check if the user is logged in using a Cubit/Service
+    // You might need to adjust this based on your auth state management
+    final loginCubit = getIt<LoginCubit>();
+    return loginCubit.state.isLoggedIn; // Assuming your LoginCubit has this state
+  }
+
+  static final protectedRoutes = [
+    SavedGamesScreen.route,
+  ];
+
   static Route<dynamic> generateRoute(
     RouteSettings settings,
   ) {
+
+    // AuthGuard: Check if the route is protected and the user is not logged in
+    if (protectedRoutes.contains(settings.name) && !isUserLoggedIn()) {
+      return MaterialPageRoute(
+        builder: (_) => LoginScreen(cubit: getIt<LoginCubit>()),
+      );
+    }
+
     switch (settings.name) {
       case SplashScreenPage.route:
         return PageTransition(

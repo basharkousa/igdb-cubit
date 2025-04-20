@@ -9,7 +9,7 @@ class BaseResponse<T> {
   });
 
   //Bashar
-  factory BaseResponse.fromJson(
+/*  factory BaseResponse.fromJson(
       {var json,
       T Function(Map<String, dynamic>)? fromJsonMapper,
       String? dataKey}) {
@@ -29,6 +29,56 @@ class BaseResponse<T> {
               ? (json as List?)?.map((item) => fromJsonMapper!(item)).toList()
               : null,
     );
+  }*/
+
+  factory BaseResponse.fromJson({
+    dynamic json,
+    T Function(Map<String, dynamic>)? fromJsonMapper,
+    String? dataKey,
+  }) {
+    if (json == null) return BaseResponse<T>();
+
+    // Case 1: If dataKey is provided and json contains that key
+    if (dataKey != null && json is Map && json.containsKey(dataKey)) {
+      final dataValue = json[dataKey];
+
+      // Subcase 1.1: The dataValue is a List
+      if (dataValue is List) {
+        return BaseResponse<T>(
+          list: fromJsonMapper != null
+              ? dataValue.map((item) => fromJsonMapper(item as Map<String, dynamic>)).toList()
+              : null,
+        );
+      }
+      // Subcase 1.2: The dataValue is a single item
+      else {
+        return BaseResponse<T>(
+          data: fromJsonMapper != null && dataValue is Map<String, dynamic>
+              ? fromJsonMapper(dataValue)
+              : dataValue as T?,
+        );
+      }
+    }
+    // Case 2: No dataKey provided, json is a List
+    else if (json is List) {
+      return BaseResponse<T>(
+        list: fromJsonMapper != null
+            ? json.map((item) => fromJsonMapper(item as Map<String, dynamic>)).toList()
+            : null,
+      );
+    }
+    // Case 3: No dataKey provided, json is a Map (direct data)
+    else if (json is Map<String, dynamic>) {
+      return BaseResponse<T>(
+        data: fromJsonMapper != null
+            ? fromJsonMapper(json)
+            : json as T?,
+      );
+    }
+    // Case 4: Unexpected format
+    else {
+      return BaseResponse<T>();
+    }
   }
 
   Map<String, dynamic> toJson() {
