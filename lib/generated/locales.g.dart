@@ -16,19 +16,19 @@ class LocaleKeys {
   static var update = "update";
   static var edit = "edit";
   static var delete = "delete";
-  static const title = 'title';
-  static const message = 'message';
-  static const connection_error = 'connection_error';
-  static const no_internet = 'no_internet';
+  static const title = "title";
+  static const message = "message";
+  static const connection_error = "connection_error";
+  static const no_internet = "no_internet";
   static const Looks_like_you_have_lost_connection =
-      'Looks_like_you_have_lost_connection';
-  static const try_these_steps = 'try_these_steps';
-  static const check_your_modem_and_router = 'check_your_modem_and_router';
-  static const reconnect_to_Wi_Fi = 'reconnect_to_Wi_Fi';
-  static const reload = 'reload';
+      "Looks_like_you_have_lost_connection";
+  static const try_these_steps = "try_these_steps";
+  static const check_your_modem_and_router = "check_your_modem_and_router";
+  static const reconnect_to_Wi_Fi = "reconnect_to_Wi_Fi";
+  static const reload = "reload";
 
   static const explore_your_interesting_games =
-      'explore_your_interesting_games';
+      "explore_your_interesting_games";
   static var saved_games = "saved_games";
   static var popular_games_right_now = "popular_games_right_now";
   static var settings = "settings";
@@ -42,19 +42,19 @@ class LocaleKeys {
 
 class Locales {
   static const en = {
-    'title': 'Hello!',
-    'message': 'This is English',
-    'connection_error': 'Please check your internet connection',
-    'no_internet': 'No Internet Connection',
-    'Looks_like_you_have_lost_connection':
-        'Looks like you have lost connection with WI-FI or\nother internet connection',
-    'try_these_steps': 'Try these steps to get back online:',
-    'check_your_modem_and_router': 'Check your modem and router',
-    'reconnect_to_Wi_Fi': 'Reconnect to Wi-Fi',
-    'reload': 'RELOAD',
-    'explore_your_interesting_games':'Explore your interesting games',
-    'saved_games':'Saved Games',
-    'summary':'Summary',
+    "title": "Hello!",
+    "message": "This is English",
+    "connection_error": "Please check your internet connection",
+    "no_internet": "No Internet Connection",
+    "Looks_like_you_have_lost_connection":
+        "Looks like you have lost connection with WI-FI or\nother internet connection",
+    "try_these_steps": "Try these steps to get back online:",
+    "check_your_modem_and_router": "Check your modem and router",
+    "reconnect_to_Wi_Fi": "Reconnect to Wi-Fi",
+    "reload": "RELOAD",
+    "explore_your_interesting_games":"Explore your interesting games",
+    "saved_games":"Saved Games",
+    "summary":"Summary",
     "popular_games_right_now": "Popular games right now",
     "add": "Add",
     "update": "Update",
@@ -74,8 +74,8 @@ class Locales {
     "check_your_modem_and_router": "Überprüfen Sie Ihr Modem und Ihren Router",
     "reconnect_to_Wi_Fi": "Mit WLAN erneut verbinden",
     "reload": "NEULADEN",
-    'explore_your_interesting_games':'Explore your interesting games',
-    'saved_games':'Saved Game',
+    "explore_your_interesting_games":"Explore your interesting games",
+    "saved_games":"Saved Game",
     "add": "Hinzufügen",
     "update": "Aktualisieren",
     "edit": "Bearbeiten",

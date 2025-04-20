@@ -1,0 +1,29 @@
+{
+    "title": "Hello!",
+    "message": "This is English",
+    "connection_error": "Please check your internet connection",
+    "no_internet": "No Internet Connection",
+    "looks_like_you_have_lost_connection":
+        "Looks like you have lost connection with WI-FI or\nother internet connection",
+    "try_these_steps": "Try these steps to get back online:",
+    "check_your_modem_and_router": "Check your modem and router",
+    "reconnect_to_Wi_Fi": "Reconnect to Wi-Fi",
+    "reload": "RELOAD",
+    "explore_your_interesting_games":"Explore your interesting games",
+    "saved_games":"Saved Games",
+    "summary":"Summary",
+    "popular_games_right_now": "Popular games right now",
+    "add": "Add",
+    "update": "Update",
+    "edit": "Edit",
+    "delete": "Delete",
+    "settings": "Settings",
+    "remove_games": "Remove games",
+    "clean_cash": "Clean Cash",
+    "client_secret": "Client Secret",
+    "enter_client_secret": "Enter client secret",
+    "enter_client_id": "Enter client id",
+    "client_id": "Client id",
+    "login": "Login"
+
+}
