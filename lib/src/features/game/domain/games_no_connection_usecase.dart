@@ -28,7 +28,7 @@ class GamesNoConnectionUseCase {
               .toList() ??
           []);
     } catch (e, t) {
-      if(e is DioException){
+      if (e is DioException) {
         BasicTools.showToastMessage("${DioErrorUtil.handleError(e)}");
       }
       var localGames = await _gameRep.getLocalGames();
@@ -36,7 +36,6 @@ class GamesNoConnectionUseCase {
           .map((element) async =>
               element.toGame(await _gameRep.isGameFavorite(element.id ?? 0)))
           .toList());
-
     }
   }
 }
